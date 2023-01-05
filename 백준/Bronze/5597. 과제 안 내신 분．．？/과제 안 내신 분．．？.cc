@@ -14,29 +14,23 @@ X대학 M교수님은 프로그래밍 수업을 맡고 있다. 교실엔 학생�
 *******************************************************************************/
 #include<iostream>
 #include<vector>
-#include<algorithm>
 
 using namespace std;
 
 int main()
 {
-    vector<int> v;
+    vector<int> v(30);
     int num;
     
     for (int i = 0; i < 28; i++)
     {
         cin >> num;
-        v.push_back(num);
+        v[num - 1]++;
     }
     
-    sort(v.begin(), v.end());
-    if(v[0] != 1)
-        cout << 1 << endl;
-    for (int i = 1; i < 28; i++)
-        if(v[i] != v[i - 1] + 1)
-            cout << v[i] - 1 << endl;
-    if(v[27] != 30)
-        cout << 30 << endl;
+    for (int i = 0; i < 30; i++)
+        if (v[i] == 0)
+            cout << i + 1 << endl;
         
     return 0;
 }
