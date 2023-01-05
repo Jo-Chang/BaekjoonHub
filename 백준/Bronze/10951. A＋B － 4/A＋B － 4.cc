@@ -19,13 +19,8 @@ using namespace std;
 int main()
 {
     int a, b;
-    while(true)
-    {
-        cin >> a >> b;
-        if (cin.eof())
-            break;
+    while(!((cin >> a >> b).eof()))
         cout << a + b << endl;
-    }
     
     return 0;
 }
