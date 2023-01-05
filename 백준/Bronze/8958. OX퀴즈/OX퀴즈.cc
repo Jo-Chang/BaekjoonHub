@@ -1,12 +1,9 @@
 #include<iostream>
-#include<vector>
-#include<cstring>
 
 using namespace std;
 
 int main()
 {
-    vector<int> v;
     string str;
     int T, sum;
     
@@ -20,22 +17,17 @@ int main()
         {
             if (str[j] == 'O')
             {
-                v.push_back(1);
+                sum++;
                 for (int k = j - 1; k >= 0; k--)
                 {
-                    if (v[k] == 0)
+                    if (str[k] == 'X')
                         break;
-                    v[k]++;
+                    sum++;
                 }
             }
-            else
-                v.push_back(0);
         }
         
-        for (int j = 0; str[j]; j++)
-            sum += v[j];
         cout << sum << endl;
-        v.clear();
     }
     
     return 0;
