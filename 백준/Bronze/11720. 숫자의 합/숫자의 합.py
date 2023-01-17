@@ -1,7 +1,6 @@
 N = int(input())
-num_string = input()
-list_num = []
-for ch in num_string:
-    list_num.append(int(ch))
+num_sum = 0
+for c in input():
+    num_sum += int(c)
 
-print(sum(list_num))
+print(num_sum)
