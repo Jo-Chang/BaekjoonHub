@@ -1,13 +1,8 @@
 word_input = input()
 
+chro_alphabet = ["c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="]
 word_len = len(word_input)
-word_len -= word_input.count("c=")
-word_len -= word_input.count("c-")
-word_len -= word_input.count("dz=")
-word_len -= word_input.count("d-")
-word_len -= word_input.count("lj")
-word_len -= word_input.count("nj")
-word_len -= word_input.count("s=")
-word_len -= word_input.count("z=")
+for alphabet in chro_alphabet:
+    word_len -= word_input.count(alphabet)
 
 print(word_len)
