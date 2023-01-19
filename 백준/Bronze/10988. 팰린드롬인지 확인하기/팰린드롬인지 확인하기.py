@@ -1,9 +1,7 @@
 def is_palindrome(word):
-    for i in range(len(word) // 2 + 1):
-        if (word[i] == word[-1 - i]):
-            pass
-        else:
-            return 0
-    return 1
-    
+    if (word == word[::-1]):
+        return 1
+    else:
+        return 0
+            
 print(is_palindrome(input()))
