@@ -6,14 +6,16 @@ import heapq
 # sys.stdin = open("1927.txt")
 
 
-num_lst = []
-heapq.heapify(num_lst)
-for T in range(int(sys.stdin.readline())):
-    num = int(sys.stdin.readline())
-    if num == 0:
-        try:
-            print(heapq.heappop(num_lst))
-        except:
+def min_heap(n, heap_):
+    if n == 0:
+        if heap_:
+            print(heapq.heappop(heap_))
+        else:
             print(0)
     else:
-        heapq.heappush(num_lst, num)
+        heapq.heappush(heap_, n)
+    
+    
+num_heap = []
+for T in range(int(sys.stdin.readline())):
+    min_heap(int(sys.stdin.readline()), num_heap)
