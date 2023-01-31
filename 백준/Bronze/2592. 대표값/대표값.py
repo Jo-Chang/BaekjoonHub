@@ -1,19 +1,26 @@
-import sys
+#2592 대표값
+#mport sys
+# sys.stdin = open("input.txt")
 
+N_list = []
+for i in range(10):
+    N = int(input())
+    N_list.append(N)
 
-def representational_num(dict_):
-    max_tuple = max(dict_.items(), key=lambda x: x[1])
-    mean_ = 0
-    for mem in dict_.items():
-        mean_ += mem[0] * mem[1]
-    mean_ //= sum(dict_.values())
-    
-    return (mean_, max_tuple[0])
+# print(N_list)
+print(int(sum(N_list)//10))
 
-
-num_dict = {}
-for _ in range(10):
-    num = int(sys.stdin.readline())
-    num_dict[num] = num_dict.get(num, 0) + 1
-    
-print(*representational_num(num_dict), sep="\n")
+temp = {}
+for j in N_list:
+    if j in temp:
+        temp[j] += 1
+    else:
+        temp[j] = 1
+max_li = temp.values()
+most = 0
+for x in temp:
+    if temp[x] == max(max_li):
+        most = x
+#print(temp)
+#print(max_li)
+print(most)
