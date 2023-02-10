@@ -6,9 +6,11 @@ n_num = int(sys.stdin.readline())
 
 
 # solution
-construct_num = 0
+n_digit_num = len(str(n_num))
+construct_num = 10**(n_digit_num - 1) - 9*n_digit_num
+construct_num = 0 if construct_num < 0 else construct_num
 while construct_num < n_num:
-    # Check construct_num is constructor of n_num
+    # Make construction
     sum_num = construct_num
     for single_digit in str(construct_num):
         sum_num += "0123456789".index(single_digit)
