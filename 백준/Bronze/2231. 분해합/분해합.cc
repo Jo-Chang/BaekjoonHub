@@ -19,8 +19,8 @@ int main()
 
 int get_min_constructor(int num)
 {
-    int num_constructor, num_digit = 0;
-    int num_temp = num;
+    int num_constructor = 1, num_digit = 0;
+    int num_temp = num, num_sum;
     
     // Get num digit
     while (num_temp > 0)
@@ -30,13 +30,13 @@ int get_min_constructor(int num)
     }
     
     // Maximum start value when num is digit
-    num_constructor = pow(10, num_digit - 1) - 9 * num_digit;
+    // num_constructor = pow(10, num_digit - 1) - 9 * num_digit;
     
     // Find minimum constructor num
-    for (int i = num_constructor; i <= num; i++)
+    while (num_constructor < num)
     {
-        int num_sum = i;
-        num_temp = i;
+        num_sum = num_constructor;
+        num_temp = num_constructor;
         
         while (num_temp > 0)
         {
@@ -46,7 +46,9 @@ int get_min_constructor(int num)
         
         // Compare construct number with num
         if (num_sum == num)
-            return i;
+            return num_constructor;
+            
+        num_constructor++;
     }
     
     // No constructor return 0
