@@ -1,80 +1,15 @@
-# 2609. 최대공약수와 최소공배수
+# 유클리드 호제법
+# 두 수의 최대공약수를 구할 수 있다.
+def get_gcd(n1, n2):
+    while True:
+        if not (n1 % n2):
+            return n2
+        n1, n2 = n2, n1 % n2
 
-import sys
-import math
+number = list(map(int, input().split()))
+large = max(number)
+small = min(number)
+gcd = get_gcd(large, small)
 
-# input
-a_num, b_num = map(int, sys.stdin.readline().strip().split())
-
-def get_primary_lst(n: int):
-    # Use Eratosthenes Sieve
-    lst = [i for i in range(n + 1)]
-    lst[0], lst[1] = False, False
-    
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if lst[i]:
-            j = i * 2
-            while j <= n:
-                lst[j] = False
-                j += i
-                
-    return lst
-
-def get_factorization(n: int, lst: list):
-    dict_ = {}
-    
-    while n > 1:
-        for primary in lst:
-            # primary가 소수가 아닌 경우
-            if not primary:
-                continue
-            
-            # primary가 소수인 경우
-            if n % primary == 0:
-                dict_[primary] = dict_.get(primary, 0) + 1
-                n //= primary
-                break
-        
-    return dict_
-
-def get_maximum_common_div(a: dict, b: dict):
-    num_sum = 1
-    
-    # 두 수 중 하나가 1이면
-    if not a or not b:
-        return 1
-    
-    for k, v in a.items():
-        if k in b:
-            num_sum *= pow(k, v) if v < b[k] else pow(k, b[k])
-            
-    return num_sum
-                
-
-def get_minimum_common_mult(a: dict, b: dict):
-    num_sum = 1
-    
-    # 두 수 중 하나가 1이면
-    if not a or not b:
-        return max(a_num, b_num)
-    
-    for k, v in a.items():
-        if k in b:
-            num_sum *= pow(k, v) if v > b[k] else pow(k, b[k])
-        else:
-            num_sum *= pow(k, v)
-            
-    for k, v in b.items():
-        if k not in a:
-            num_sum *= pow(k, v)
-            
-    return num_sum
-
-
-primary_lst = get_primary_lst(a_num) if a_num > b_num else get_primary_lst(b_num)
-a_dict, b_dict = get_factorization(a_num, primary_lst), get_factorization(b_num, primary_lst)
-# print
-# Print maximum common div
-print(get_maximum_common_div(a_dict, b_dict))
-# Print minimum common mult
-print(get_minimum_common_mult(a_dict, b_dict))
+print(gcd)
+print(large * small // gcd)
