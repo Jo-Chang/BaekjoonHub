@@ -3,8 +3,8 @@
 import sys
 from collections import deque
 
-n = int(input())
-cmd_lst = list(map(int, input().split()))
+n = int(sys.stdin.readline())
+cmd_lst = list(map(int, sys.stdin.readline().split()))
 
 origin_lst = deque()    # as deque
 start_lst = [num for num in range(n, 0, -1)]    # as stack
