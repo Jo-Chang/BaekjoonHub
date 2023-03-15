@@ -1,12 +1,17 @@
 # 15651. N과 M (3)
 
-n, m = map(int, input().split())
+import sys
+
+n, m = map(int, sys.stdin.readline().split())
 lst = []
+visited = [False] * m
 
 def my_comb_recursion():  
     if len(lst) == m:
-        print(" ".join(map(str, lst)))
+        # print(*lst)
+        sys.stdout.write(' '.join(map(str, lst))+'\n')
         return 
+    
     for i in range(1, n+1):
         lst.append(i)
         my_comb_recursion()
