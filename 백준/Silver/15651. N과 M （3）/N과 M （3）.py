@@ -4,7 +4,6 @@ import sys
 
 n, m = map(int, sys.stdin.readline().split())
 lst = []
-visited = [False] * m
 
 def my_comb_recursion():  
     if len(lst) == m:
