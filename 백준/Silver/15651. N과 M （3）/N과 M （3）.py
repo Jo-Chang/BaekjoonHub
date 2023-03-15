@@ -1,6 +1,8 @@
 # 15651. N과 M (3)
 
-n, m = map(int, input().split())
+import sys
+
+n, m = map(int, sys.stdin.readline().split())
 lst = []
 
 def my_comb_recursion(n: int, k: int):  
