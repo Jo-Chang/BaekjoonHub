@@ -1,13 +1,14 @@
 # 15656. N과 M (7)
 
-n, m = map(int, input().split())
-num_lst = list(map(int, input().split()))
-num_lst = sorted(num_lst)
+import sys
+
+n, m = map(int, sys.stdin.readline().split())
+num_lst = sorted(map(int, sys.stdin.readline().split()))
 comb_lst = []
 
 def my_comb_recursion():
     if len(comb_lst) == m:
-        print(' '.join(map(str, comb_lst)))
+        sys.stdout.write(' '.join(map(str, comb_lst)) + '\n')
         return
     
     for num in num_lst:
