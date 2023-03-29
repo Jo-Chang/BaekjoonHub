@@ -2,12 +2,9 @@
 
 n = int(input())
 for i in range(n//5, -1, -1):
-    temp = n
-    cnt = 0
-    temp -= 5 * i
+    temp = n - 5 * i
     if temp % 3 == 0:
-        cnt = i + temp // 3
-        print(cnt)
+        print(i + temp // 3)
         break
 else:
     print(-1)
