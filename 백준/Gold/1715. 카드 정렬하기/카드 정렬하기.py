@@ -1,13 +1,20 @@
-import heapq, sys
-N = int(sys.stdin.readline())
-numbers = []
-result = 0
-for _ in range(N):
-    numbers.append(int(sys.stdin.readline()))
+# 1715. 카드 정렬하기
 
-heapq.heapify(numbers)
-while len(numbers) > 1:
-    cnt = heapq.heappop(numbers) + heapq.heappop(numbers)
-    result += cnt
-    heapq.heappush(numbers, cnt)
-print(result)
+import heapq
+import sys
+
+n = int(sys.stdin.readline())
+nums = []
+
+for _ in range(n):
+    nums.append(int(sys.stdin.readline()))
+
+heapq.heapify(nums)
+
+answer = 0
+while len(nums) > 1:
+    tmp = heapq.heappop(nums) + heapq.heappop(nums)
+    answer += tmp
+    heapq.heappush(nums, tmp)
+    
+print(answer)
