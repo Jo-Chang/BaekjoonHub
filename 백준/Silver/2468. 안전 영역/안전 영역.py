@@ -2,7 +2,7 @@
 
 import sys
 # import pprint
-sys.setrecursionlimit(10 ** 6)
+sys.setrecursionlimit(10 ** 4)
 
 delta = [
     (1, 0),
