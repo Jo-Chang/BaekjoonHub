@@ -12,14 +12,14 @@ delta = [
 ]
 
 def check_valid(pos: tuple, n: int):
-    global area_temp
+    # global area_temp
     if 0 <= pos[0] < n and 0 <= pos[1] < n and area_temp[pos[0]][pos[1]] > 0:
         return True
     return False
 
 
 def dfs(pos: tuple):
-    global delta, area_temp
+    # global delta, area_temp
     for dx, dy in delta:
         new_pos = (pos[0]+dy, pos[1]+dx)
         if check_valid(new_pos, n):
