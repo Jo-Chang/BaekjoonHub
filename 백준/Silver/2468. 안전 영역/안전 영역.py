@@ -1,8 +1,8 @@
 # 2468. 안전 영역
 
 import sys
-from pprint import pprint
-sys.setrecursionlimit(10 ** 4)
+from collections import deque
+# sys.setrecursionlimit(10 ** 4)    # recursion option
 
 delta = [
     (1, 0),
@@ -53,6 +53,19 @@ def dfs_loop(position: tuple):
             if check_valid(new_pos, n):
                 area_temp[new_pos[0]][new_pos[1]] = 0
                 stack.append(new_pos)
+
+def bfs_loop(position: tuple):
+    global delta, area_temp
+    deq = deque([position])
+    
+    while deq:
+        pos = deq.popleft()
+
+        for dy, dx in delta:
+            new_pos = (pos[0]+dy, pos[1]+dx)
+            if check_valid(new_pos, n):
+                area_temp[new_pos[0]][new_pos[1]] = 0
+                deq.append(new_pos)
     
 
 n = int(input())
@@ -72,7 +85,8 @@ for height in heights:
             area_temp[i][j] = 0
             # dfs((i, j))
             # bfs((i, j))
-            dfs_loop((i, j))
+            # dfs_loop((i, j))
+            bfs_loop((i, j))
             
     answer = cnt if cnt > answer else answer
     
