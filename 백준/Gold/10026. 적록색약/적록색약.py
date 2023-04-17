@@ -1,61 +1,60 @@
-# 10026. 적록색약
-
-import sys
-from collections import deque
-from pprint import pprint
-
-answer = [0, 0]
+import copy
 n = int(input())
-area = list()
-area2= list()
+graph = []
+for i in range(n):
+    graph.append(list(input()))
 
-for _ in range(n):
-    line = list(sys.stdin.readline().rstrip())
-    area.append(line)
-    area2.append([char if char != 'G' else 'R' for char in line])
-    
-# pprint(area)
-# pprint(area2)
+graphd = copy.deepcopy(graph)
+d = [(0,1),(0,-1),(1,0),(-1,0)]
 
-def check_valid(pos: tuple, n: int):
-    if 0 <= pos[0] < n and 0 <= pos[1] < n:
-        return True
-    return False
+def dfs(x,y):
+    global mf
+    stack = [(x,y)]
+    color = graph[y][x]
+    graph[y][x] = '0'
+    while stack:
+        x1,y1 = stack.pop()
+        for dx,dy in d:
+            mx = x1+dx
+            my = y1+dy
+            if 0<=mx<n and 0<=my<n:
+                if graph[my][mx] == color:
+                    graph[my][mx] = '0'
+                    stack.append((mx,my))
 
-def bfs(lst: list, start: tuple):
-    deq = deque([start])
-    DELTA = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-    
-    color = lst[start[0]][start[1]]
-    lst[start[0]][start[1]] = 0
-    pos = start
-    while deq:
-        pos = deq.popleft()
-        for dy, dx in DELTA:
-            new_pos = (pos[0]+dy, pos[1]+dx)
-            if not check_valid(new_pos, n):
-                continue
-            if color == lst[new_pos[0]][new_pos[1]]:
-                deq.append(new_pos)
-                lst[new_pos[0]][new_pos[1]] = 0
-            
-    
+def dfsGR(x,y):
+    global mf
+    stack = [(x,y)]
+    color = graphd[y][x]
+    graphd[y][x] = '0'
+    while stack:
+        x1,y1 = stack.pop()
+        for dx,dy in d:
+            mx = x1+dx
+            my = y1+dy
+            if color == 'B':
+                if 0<=mx<n and 0<=my<n:
+                    if graphd[my][mx] == color:
+                        graphd[my][mx] = '0'
+                        stack.append((mx,my))
+            else:
+                if 0<=mx<n and 0<=my<n:
+                    if graphd[my][mx] in ['G','R']:
+                        graphd[my][mx] = '0'
+                        stack.append((mx,my))
 
+
+
+cnt1 = 0
+cnt2 = 0
 for i in range(n):
     for j in range(n):
-        if not area[i][j]:
-            continue
-        
-        answer[0] += 1
-        bfs(area, (i, j))
-        
-# 적록색약이 본 경우
-for i in range(n):
-    for j in range(n):
-        if not area2[i][j]:
-            continue
-        
-        answer[1] += 1
-        bfs(area2, (i, j))
+        if graph[i][j] != '0':
+            dfs(j,i)
+            cnt1 += 1
+        if graphd[i][j] != '0':
+            dfsGR(j,i)
+            cnt2 += 1
 
-print(' '.join(map(str, answer)))
+
+print(cnt1,cnt2)
