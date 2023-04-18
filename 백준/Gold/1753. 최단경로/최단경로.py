@@ -8,7 +8,9 @@ from pprint import pprint
 V, E = map(int, input().split())
 K = int(input())
 graph = [[] for _ in range(V)]
-answer = [float('inf')] * V
+# answer = [float('inf')] * V
+INF = sys.maxsize
+answer = [INF] * V
 
 for _ in range(E):
     u, v, w = map(int, sys.stdin.readline().split()) 
@@ -51,7 +53,7 @@ def dijkstra(start: int):
 dijkstra(K-1)
 answer[K-1] = 0
 for goal in range(V):
-    if answer[goal] == float('inf'):
+    if answer[goal] == INF:
         print('INF')
     else:
         print(answer[goal])
