@@ -26,8 +26,8 @@ while True:
         if cur_pos[0] == N-1 and cur_pos[1] == N-1:
             break
         
-        if cur_cost > cost[cur_pos[0]][cur_pos[1]]:
-            continue
+        # if cur_cost > cost[cur_pos[0]][cur_pos[1]]:
+        #     continue
         
         map_[cur_pos[0]][cur_pos[1]] = VISITED
         
