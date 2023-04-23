@@ -31,16 +31,9 @@ while True:
             if not (0 <= ny < N and 0 <= nx < N):
                 continue
             new_cost =  map_[ny][nx] + cur_cost
-            if map_[ny][nx] != VISITED and cost[ny][nx] > new_cost:
+            if cost[ny][nx] > new_cost:
+            # if map_[ny][nx] != VISITED and cost[ny][nx] > new_cost:
                 cost[ny][nx] = new_cost
                 heapq.heappush(q, (new_cost, ny, nx))
-        # for dy, dx in DELTA:
-        #     new_pos = (cur_pos[0]+dy, cur_pos[1]+dx)
-        #     if not (0 <= new_pos[0] < N and 0 <= new_pos[1] < N):
-        #         continue
-        #     new_cost =  map_[new_pos[0]][new_pos[1]] + cur_cost
-        #     if map_[new_pos[0]][new_pos[1]] != VISITED and cost[new_pos[0]][new_pos[1]] > new_cost:
-        #         cost[new_pos[0]][new_pos[1]] = new_cost
-        #         heapq.heappush(q, (new_cost, new_pos))
 
     print(f'Problem {test_case}: {answer}')
