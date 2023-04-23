@@ -24,12 +24,8 @@ while True:
         # print(f'cur : {cur_cost}, {cur_pos}')
         
         if cur_pos[0] == N-1 and cur_pos[1] == N-1:
+            answer = cur_cost
             break
-        
-        # if cur_cost > cost[cur_pos[0]][cur_pos[1]]:
-        #     continue
-        
-        map_[cur_pos[0]][cur_pos[1]] = VISITED
         
         for dy, dx in DELTA:
             new_pos = (cur_pos[0]+dy, cur_pos[1]+dx)
@@ -38,8 +34,6 @@ while True:
             new_cost =  map_[new_pos[0]][new_pos[1]] + cur_cost
             if map_[new_pos[0]][new_pos[1]] != VISITED and cost[new_pos[0]][new_pos[1]] > new_cost:
                 cost[new_pos[0]][new_pos[1]] = new_cost
-                heapq.heappush(q, (cost[new_pos[0]][new_pos[1]], new_pos))
-        
-    answer = cost[N-1][N-1]
+                heapq.heappush(q, (new_cost, new_pos))
 
     print(f'Problem {test_case}: {answer}')
