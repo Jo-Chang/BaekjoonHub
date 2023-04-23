@@ -16,12 +16,12 @@ while True:
     map_ = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
     cost = [[int(1e9)] * N for _ in range(N)]
 
-    q = list()
+    q = []
+    cost[0][0] = 0
     heapq.heappush(q, (map_[0][0], (0, 0)))
     
     while q:
         cur_cost, cur_pos = heapq.heappop(q)
-        # print(f'cur : {cur_cost}, {cur_pos}')
         
         if cur_pos[0] == N-1 and cur_pos[1] == N-1:
             answer = cur_cost
