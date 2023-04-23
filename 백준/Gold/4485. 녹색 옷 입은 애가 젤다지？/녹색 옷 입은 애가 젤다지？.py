@@ -23,6 +23,9 @@ while True:
         cur_cost, cur_pos = heapq.heappop(q)
         # print(f'cur : {cur_cost}, {cur_pos}')
         
+        if cur_pos[0] == N-1 and cur_pos[1] == N-1:
+            break
+        
         if cur_cost > cost[cur_pos[0]][cur_pos[1]]:
             continue
         
