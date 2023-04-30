@@ -20,21 +20,21 @@ for i in range(N):
             
 cnt = 0
 while q:
-    sub_q = copy.deepcopy(q)
     tmp = 0
+    tmp_q = []
     
     # 하루 동안 새로 익은 토마토의 주변을 동시에 검사
     # 해당 날짜에 익은 토마토들의 값 변화와 cnt 값 증가를 동시에 진행
-    for y, x in sub_q:
+    for y, x in q:
         tmp += 1    # q에서 제거할 갯수
         for dy, dx in DELTA:
             ny, nx = y+dy, x+dx
             if 0 <= ny < N and 0 <= nx < M:
                 if not box[ny][nx]:
                     # 추가 값(새로 익을 토마토)
-                    q.append((ny, nx))
+                    tmp_q.append((ny, nx))
                     box[ny][nx] = 2
-                    
+    q += tmp_q
     # 연산 종료 후 q에서 사용된 값(이미 익은 토마토) 제거
     for _ in range(tmp):
         q.popleft()
