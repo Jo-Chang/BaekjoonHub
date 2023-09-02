@@ -9,7 +9,6 @@ S = list(map(int, fin().split()))
 for i in range(1, N):
     S[i] += S[i - 1]
 
-temp=list()
 S.append(0)
 max_sum = -1e9
 for i in range(N - K + 1):
