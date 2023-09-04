@@ -22,5 +22,7 @@ for team in combinations(range(1, N), N // 2 - 1):
                 team2_cnt += ability[i][j] + ability[j][i]
     
     min_diff = min(abs(team1_cnt - team2_cnt), min_diff)
+    if not min_diff:
+        break
     
 print(min_diff)
