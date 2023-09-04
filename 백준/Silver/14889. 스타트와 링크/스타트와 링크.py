@@ -98,5 +98,6 @@ def solution4():
         
 # solution1()
 # solution2()
-solution3()
+# solution3()
+solution4()
 print(min_diff)
