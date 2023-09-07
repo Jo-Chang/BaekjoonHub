@@ -13,13 +13,14 @@ public class Main {
     char ch;
     int l, r;
 
-    int[][] cntArr = new int[word.length() + 1][26];  // 알파뱃 26문자
-    Arrays.fill(cntArr[0], 0);
-    for (int i = 1; i <= word.length(); i++) {
+    int[][] cntArr = new int[word.length()][26];  // 알파뱃 26문자
+    // Arrays.fill(cntArr[0], 0);
+    cntArr[0][word.charAt(0) - 'a']++;
+    for (int i = 1; i < word.length(); i++) {
       for (int j = 0; j < 26; j++) {
         cntArr[i][j] = cntArr[i - 1][j];
       }
-      cntArr[i][word.charAt(i - 1) - 'a']++;
+      cntArr[i][word.charAt(i) - 'a']++;
     }
 
     while (q-- > 0) {
@@ -28,7 +29,10 @@ public class Main {
       l = Integer.parseInt(st.nextToken());
       r = Integer.parseInt(st.nextToken());
 
-      System.out.println(cntArr[r + 1][ch - 'a'] - cntArr[l][ch - 'a']);
+      if (l == 0)
+        System.out.println(cntArr[r][ch - 'a']);
+      else
+        System.out.println(cntArr[r][ch - 'a'] - cntArr[l - 1][ch - 'a']);
     }
   }  
 }
