@@ -36,7 +36,7 @@ public class Main {
     bw.write(String.valueOf(max(dp)));
 
     bw.flush();
-    bw.close();
+
   }
 
   public static void main(String[] args) throws IOException{
