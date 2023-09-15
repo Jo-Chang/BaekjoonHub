@@ -1,65 +1,51 @@
 import java.io.*;
 import java.util.StringTokenizer;
+import java.util.Stack;
 
 
 public class Main
 {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    StringBuilder sb = new StringBuilder();
     
-    private boolean isEmpty(int idx) {
-        return idx == 0 ? true : false;
-    }
-    
-    private void solution() throws IOException {
+    void solution() throws IOException {
         int n = Integer.parseInt(br.readLine());
-        int[] stack = new int[1000000];
-        int idx = 0;
+        Stack<Integer> stack = new Stack<>();
         
         while (n-- > 0) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            char cmd = st.nextToken().charAt(0);
+            // StringTokenizer st = new StringTokenizer(br.readLine());
+            String q = br.readLine();
+            char cmd = q.charAt(0);
             int output = -2;
             
             switch(cmd) {
+                
                 case '1':
-                    int x = Integer.parseInt(st.nextToken());
-                    stack[idx++] = x;
+                    stack.push(Integer.parseInt(q.substring(2)));
                     break;
+                    
                 case '2':   // pop()
-                    if (isEmpty(idx)) {
-                        output = -1;
-                    } else {
-                        output = stack[--idx];
-                    }
+                    sb.append(stack.isEmpty() ? -1 : stack.pop()).append('\n');
                     break;
+                    
                 case '3':
-                    output = idx;
+                    sb.append(stack.size()).append('\n');
                     break;
+                    
                 case '4':
-                    if (isEmpty(idx)) {
-                        output = 1;
-                    } else {
-                        output = 0;
-                    }
+                    sb.append(stack.isEmpty() ? 1 : 0).append("\n");
                     break;
+                    
                 case '5':
-                    if (isEmpty(idx)) {
-                        output = -1;
-                    } else {
-                        output = stack[idx - 1];
-                    }
+                    sb.append(stack.isEmpty() ? -1 : stack.peek()).append("\n");
                     break;
+                    
                 default:
                     break;
             }
-            
-            if(output != -2) {
-                bw.write(String.valueOf(output) + "\n");
-            }
         }
         
-        bw.close();
+        System.out.print(sb);
     }
     
 	public static void main(String[] args) throws IOException {
