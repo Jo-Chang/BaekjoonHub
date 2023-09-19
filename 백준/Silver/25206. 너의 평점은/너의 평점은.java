@@ -3,8 +3,10 @@ import java.util.StringTokenizer;
 
 public class Main {
   final static int TESTCASE = 20;
+  static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
   public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     double avg = 0, sum = 0;
 
     for (int i = 0; i < TESTCASE; i++) {
@@ -35,6 +37,8 @@ public class Main {
       }
     }
 
-    System.out.printf("%.6f", avg / sum);
+    // System.out.printf("%.6f", avg / sum);
+    bw.write(String.format("%.6f", avg / sum));
+    bw.close();
   }
 }
