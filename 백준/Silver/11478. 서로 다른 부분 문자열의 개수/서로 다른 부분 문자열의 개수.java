@@ -2,9 +2,9 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-  void solution() throws IOException {
     String word = br.readLine().strip();
     Set<String> s = new HashSet<>();
 
@@ -15,9 +15,5 @@ public class Main {
     }
 
     System.out.println(s.size());
-  }
-
-  public static void main(String[] args) throws IOException {
-    new Main().solution();
   }
 }
