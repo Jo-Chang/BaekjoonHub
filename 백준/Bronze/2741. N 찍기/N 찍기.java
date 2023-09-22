@@ -8,7 +8,7 @@ public class Main {
     int n = Integer.parseInt(br.readLine());
 
     for (int i = 1; i <= n; i++) {
-      sb.append(String.valueOf(i)).append("\n");
+      sb.append(i).append("\n");
     }
 
     System.out.println(sb);
