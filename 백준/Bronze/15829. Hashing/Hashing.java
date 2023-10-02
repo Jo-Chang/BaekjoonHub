@@ -1,4 +1,5 @@
 import java.io.*;
+import java.math.BigInteger;
 
 public class Main {
   BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -10,12 +11,21 @@ public class Main {
     final int R = 31;
     final int MODULO = 1234567891;
 
-    long answer = 0;
+    // BigInteger answer = new BigInteger("0");
+    // BigInteger bigNum;
+    long answer = 0, hash;
     int number;
 
     for (int i = 0; i < l; i++) {
       number = (int)word.charAt(i) - (int)'a' + 1;
-      answer += (long)Math.pow(R, i) * number % MODULO;
+      // bigNum = new BigInteger(String.format("%d", number));
+      hash = number;
+      for (int j = 0; j < i; j++) {
+        // bigNum = bigNum.multiply(BigInteger.valueOf(R)).remainder(BigInteger.valueOf(MODULO));
+        hash = hash * R % MODULO;
+      }
+      // answer = answer.add(bigNum);
+      answer = (answer + hash) % MODULO;
     }
 
     System.out.println(answer);
