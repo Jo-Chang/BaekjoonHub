@@ -39,7 +39,7 @@ public class Main {
       int cur = q.remove();
       
       if (cur == K) break;
-      
+
       for (int mem : list[cur]) {
         int newDist = dist[cur] + 1;
         if (dist[mem] > newDist || dist[mem] == -1) {
@@ -53,7 +53,44 @@ public class Main {
     System.out.println(answer);
   }
 
+  void solution2() throws IOException {
+     StringTokenizer st = new StringTokenizer(br.readLine());
+
+    int N = Integer.parseInt(st.nextToken()), K = Integer.parseInt(st.nextToken());
+    // 그래프의 사용범위 최댓값은 max(N, K+1) 중 더 큰 값보다 더 큰 수 중 가장 가까운 2의배수이다.
+    int max = Math.max(N, K + 1);
+    while (max % 2 != 0) max++;
+    if (max > MAXIMUM) max = MAXIMUM;
+
+    int[] dist = new int[max + 1];
+    LinkedList<Integer> q = new LinkedList<>();
+
+    dist[N] = 1;
+    q.add(N);
+    while (!q.isEmpty()) {
+      int cur = q.remove();
+
+      if (cur == K) break;
+
+      int newDist = dist[cur] + 1;
+      if (cur + 1 <= max && (dist[cur + 1] == 0 || dist[cur + 1] > newDist)) {
+        dist[cur + 1] = newDist;
+        q.add(cur + 1);
+      } 
+      if (cur - 1 >= 0 && (dist[cur - 1] == 0 || dist[cur - 1] > newDist)) {
+        dist[cur - 1] = newDist;
+        q.add(cur - 1);
+      }
+      if (cur * 2 <= max && (dist[cur * 2] == 0 || dist[cur * 2] > newDist)) {
+        dist[cur * 2] = newDist;
+        q.add(cur * 2);
+      }
+    }
+
+    System.out.println(dist[K] - 1);
+  }
+
   public static void main(String[] args) throws IOException {
-    new Main().solution();
+    new Main().solution2();
   }
 }
