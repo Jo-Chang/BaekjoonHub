@@ -5,11 +5,6 @@ public class Main {
 	static class Pair {
 		private int x, y;
 		
-		public Pair() {
-			this.x = -1;
-			this.y = -1;
-		}
-		
 		public Pair(int x, int y) {
 			this.x = x;
 			this.y = y;
@@ -35,21 +30,17 @@ public class Main {
 		int n = Integer.parseInt(st.nextToken()), m = Integer.parseInt(st.nextToken());
 		int[][] board = new int[n][m];
 		int[][] dist = new int[n][m];
+    int[] dx = {1, -1, 0, 0};
+    int[] dy = {0, 0, 1, -1};
 		
-		Pair start = new Pair();
+		Pair start = new Pair(-1, -1);
 		for (int i = 0; i < n; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < m; j++) {
 				board[i][j] = Integer.parseInt(st.nextToken());
 				if (board[i][j] == 2) {
 					start.setPosition(i, j);
-				}
-			}
-		}
-		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-        if (board[i][j] == 0) dist[i][j] = 0;
+				} else if (board[i][j] == 0) dist[i][j] = 0;
         else dist[i][j] = -1;
 			}
 		}
@@ -61,31 +52,18 @@ public class Main {
 		while (!q.isEmpty()) {
 			Pair cur = q.remove();
 			
-			if (isValidate(cur.getX() + 1, cur.getY(), n, m)) {
-        if (dist[cur.getX() + 1][cur.getY()] == -1) {
-          dist[cur.getX() + 1][cur.getY()] = dist[cur.getX()][cur.getY()] + 1;
-				  q.add(new Pair(cur.getX() + 1, cur.getY()));
+      for (int i = 0; i < 4; i++) {
+        int nx = cur.getX() + dx[i];
+        int ny = cur.getY() + dy[i];
+
+        if (isValidate(nx, ny, n, m)) {
+          if (dist[nx][ny] == -1) {
+            dist[nx][ny] = dist[cur.getX()][cur.getY()] + 1;
+            q.add(new Pair(nx, ny));
+          }
         }
-			} 
-      if (isValidate(cur.getX() - 1, cur.getY(), n, m)) {
-        if (dist[cur.getX() - 1][cur.getY()] == -1) {
-				  dist[cur.getX() - 1][cur.getY()] = dist[cur.getX()][cur.getY()] + 1;
-				  q.add(new Pair(cur.getX() - 1, cur.getY()));
-        }
-			} 
-      if (isValidate(cur.getX(), cur.getY() + 1, n, m)) {
-        if (dist[cur.getX()][cur.getY() + 1] == -1) {
-          dist[cur.getX()][cur.getY() + 1] = dist[cur.getX()][cur.getY()] + 1;
-				  q.add(new Pair(cur.getX(), cur.getY() + 1));
-        }
-			} 
-      if (isValidate(cur.getX(), cur.getY() - 1, n, m)) {
-        if (dist[cur.getX()][cur.getY() - 1] == -1) {
-				  dist[cur.getX()][cur.getY() - 1] = dist[cur.getX()][cur.getY()] + 1;
-				  q.add(new Pair(cur.getX(), cur.getY() - 1));
-        }
-			}
-		}
+      }
+    }
 		
     StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < n; i++) {
