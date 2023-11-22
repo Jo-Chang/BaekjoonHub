@@ -2,13 +2,16 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-  void solution1() throws Exception {
-    Scanner sc = new Scanner(System.in);
+  void solution1() throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     int answer = 0;
-    int n = sc.nextInt(), m = sc.nextInt();
+    int n = Integer.parseInt(br.readLine()), m = Integer.parseInt(br.readLine());
     int[] brokens = new int[m];
-    for (int i = 0; i < m; i++) {
-      brokens[i] = sc.nextInt();
+    if (m > 0) {
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      for (int i = 0; i < m; i++) {
+        brokens[i] = Integer.parseInt(st.nextToken());
+      }
     }
 
     answer = Math.abs(n - 100);
@@ -73,7 +76,7 @@ public class Main {
           num2 /= 10;
         }
       }
-      
+
       if (flag) num++;
       else {
         answer = Math.min(answer, num - n + digit);
@@ -84,7 +87,7 @@ public class Main {
     System.out.println(answer);
   }
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
     new Main().solution1();
   }
 }
