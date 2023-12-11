@@ -8,15 +8,29 @@ class Main {
     int m = Integer.parseInt(br.readLine());
     String inputString = br.readLine();
     int answer = 0;
-    for (int i = 0; i < inputString.length() - 2*n; i++) {
-      int cnt = 0;
-      for (int j = 0; j < n; j++) {
-        if (inputString.charAt(i + 2*j) == 'I') cnt++;
-        if (inputString.charAt(i + 2*j + 1) == 'O') cnt++;
+    boolean flag = true;
+    int cnt = 0;
+    for (int i = 0; i < inputString.length(); i++) {
+      if (flag && inputString.charAt(i) == 'I') {
+        flag = false;
+        cnt++;
+      } else if (!flag && inputString.charAt(i) == 'O') {
+        flag = true;
+        cnt++;
+      } else {
+        cnt = (cnt - 1) / 2 - n + 1;
+        if (cnt > 0) answer += cnt;
+        if (inputString.charAt(i) == 'I') {
+          cnt = 1;
+          flag = false;
+        } else if (inputString.charAt(i) == 'O') {
+          cnt = 0;
+          flag = true;
+        }
       }
-      if (inputString.charAt(i + 2*n) == 'I') cnt++;
-      if (cnt == (2 * n + 1)) answer++;
     }
+    cnt = (cnt - 1) / 2 - n + 1;
+    if (cnt > 0) answer += cnt;
 
     br.close();
     bw.write(answer + "\n");
