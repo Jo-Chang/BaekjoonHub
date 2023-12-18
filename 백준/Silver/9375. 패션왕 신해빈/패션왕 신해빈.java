@@ -12,15 +12,11 @@ class Main {
       Map<String, Integer> map = new HashMap<>();
       for (int i = 0; i < N; i++) {
         String[] input = br.readLine().split(" ");
-        if (map.containsKey(input[1])) {
-          map.replace(input[1], map.get(input[1]) + 1);
-        } else {
-          map.put(input[1], 1);
-        }
+        map.put(input[1], map.getOrDefault(input[1], 1) + 1);
       }
       int answer = 1;
       for (int cnt : map.values()) {
-        answer *= cnt + 1;
+        answer *= cnt;
       }
 
       sb.append(--answer + "\n");
