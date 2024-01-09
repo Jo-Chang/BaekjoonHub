@@ -18,10 +18,11 @@ class Boj1504 {
     int B = Integer.parseInt(st.nextToken());
     int num = 0;
 
-    for (int i = N.length() - 1; i >= 0; i--) {
+    for (int i = 0; i < N.length(); i++) {
+      num *= B;
       char ch = N.charAt(i);
-      if ('0' <= ch && ch <= '9') num += (ch - '0') * Math.pow(B, N.length()-1 - i);
-      else if ('A' <= ch && ch <= 'Z') num += (10 + ch - 'A') * Math.pow(B, N.length()-1 - i);
+      if ('0' <= ch && ch <= '9') num += (ch - '0');
+      else if ('A' <= ch && ch <= 'Z') num += (10 + ch - 'A');
     }
 
     System.out.println(num);
