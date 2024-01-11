@@ -36,7 +36,7 @@ class Boj1238 {
     int[] reversedDist = reverseDijkstra();
     for (int i = 1; i <= N; i++) dist[i] += reversedDist[i];
 
-    System.out.println(Arrays.stream(dist).filter(n -> n < 1000000).max().getAsInt());
+    System.out.println(Arrays.stream(dist).filter(n -> n <= 1000000).max().getAsInt());
   }
 
   int[] dijkstra() {
