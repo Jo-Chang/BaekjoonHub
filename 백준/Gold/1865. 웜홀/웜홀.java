@@ -10,8 +10,7 @@ public class Main {
 class Boj1504 {
   final int INF = Integer.MAX_VALUE;
   
-  // List<Node>[] graph;
-  ArrayList<Node> edges;
+  ArrayList<Edge> edges;
   StringBuilder sb;
   int N;
 
@@ -27,8 +26,6 @@ class Boj1504 {
       int M = Integer.parseInt(st.nextToken());
       int W = Integer.parseInt(st.nextToken());
 
-      // graph = new List[N + 1];
-      // for (int i = 1; i <= N; i++) graph[i] = new ArrayList<>();
       edges = new ArrayList<>();
       
       for (int i = 0; i < M + W; i++) {
@@ -39,17 +36,13 @@ class Boj1504 {
         int T = Integer.parseInt(st.nextToken());
 
         if (i < M) {
-          // graph[S].add(new Node(E, T));
-          // graph[E].add(new Node(S, T));
-          edges.add(new Node(S, E, T));
-          edges.add(new Node(E, S, T));
+          edges.add(new Edge(S, E, T));
+          edges.add(new Edge(E, S, T));
         } else {
-          // graph[S].add(new Node(E, -T));
-          edges.add(new Node(S, E, -T));
+          edges.add(new Edge(S, E, -T));
         }
       }
 
-      // boolean answer = bfs();
       boolean answer = bellmanFord();
       sb.append(answer? "NO" : "YES").append("\n");
     }
@@ -59,36 +52,27 @@ class Boj1504 {
   }
 
   boolean bellmanFord() {
+    // 각 정점의 가중치 값이 아닌, 음순환만을 밝히기 위한 벨만-포드
     int[] vortex = new int[N + 1];
-    Arrays.fill(vortex, INF);
-
-    for (int x = 1; x <= N; x++) {
-      if (vortex[x] != INF) continue;
-      vortex[x] = 0;
-
-      for (int i = 0; i < N; i++) {
-        for (Node edge : edges) {
-          if (vortex[edge.start] == INF) continue;
-  
-          int newTime = vortex[edge.start] + edge.time;
-          if (newTime < vortex[edge.end]) {
-            vortex[edge.end] = newTime;
-  
-            if (i == N - 1) return false;
-          }
-        }
+    
+    for (int i = 0; i < N; i++) {
+      for (Edge e : edges) {
+        vortex[e.end] = Math.min(vortex[e.end], vortex[e.start] + e.time);    
       }
+    }
+
+    for (Edge e : edges) {
+      if (vortex[e.end] > vortex[e.start] + e.time) return false;
     }
 
     return true;
   }
 }
 
-class Node {
+class Edge {
   int start, end, time;
 
-  Node() {}
-  Node(int start, int end, int time) {
+  Edge(int start, int end, int time) {
     this.start = start;
     this.end = end;
     this.time = time;
