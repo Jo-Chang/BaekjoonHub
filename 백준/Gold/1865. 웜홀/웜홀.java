@@ -3,11 +3,11 @@ import java.util.*;
 
 public class Main {
   public static void main(String[] args) throws IOException {
-    new Boj1504().solution();
+    new Boj1865().solution();
   }
 }
 
-class Boj1504 {
+class Boj1865 {
   final int INF = Integer.MAX_VALUE;
   
   ArrayList<Edge> edges;
