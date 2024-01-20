@@ -5,6 +5,7 @@ import java.util.*;
 class Solution {
   final int INF = Integer.MAX_VALUE;
 
+  int answer;
   int[][] graph;
   int N, M;
   
@@ -19,6 +20,7 @@ class Solution {
 
     int T = Integer.parseInt(br.readLine());
     for (int tc = 1; tc <= T; tc++) {
+      answer = INF;
       st = new StringTokenizer(br.readLine());
 
       N = Integer.parseInt(st.nextToken());
@@ -41,15 +43,6 @@ class Solution {
       
       dijkstra();
 
-      int answer = INF;
-      for (int i = 1; i <= N; i++) {
-        if (graph[i][i] != 0) answer = Math.min(answer, graph[i][i]);
-        for (int j = 1; j <= N; j++) {
-          if (graph[i][j] == INF || graph[j][i] == INF || i == j) continue;
-
-          answer = Math.min(answer, graph[i][j] + graph[j][i]);
-        }
-      }
       sb.append(String.format("#%d %d\n", tc, (answer == INF) ? -1 : answer));
     }
     br.close();
@@ -69,6 +62,7 @@ class Solution {
         Node node = pq.remove();
         int cd = node.destination;
         int cw = node.weight;
+        if (cw > answer) continue;
 
         for (int j = 1; j <= N; j++) {
           if (graph[cd][j] == INF) continue;
@@ -81,7 +75,7 @@ class Solution {
         }
       }
 
-      graph[i] = distance;
+      answer = Math.min(answer, distance[i]);
     }
   }
 
