@@ -28,23 +28,20 @@ class Boj2638 {
     // 입력
     N = Integer.parseInt(st.nextToken());
     M = Integer.parseInt(st.nextToken());
-    arr = new int[N + 2][M + 2];
+    arr = new int[N][M];
     boolean noCheese = true;
-    Set<Location> set = new HashSet<>();
-
     Arrays.fill(arr[0], OUTSIDE);
-    Arrays.fill(arr[N + 1], OUTSIDE);
-    for (int i = 1; i <= N; i++) {
+    Arrays.fill(arr[N - 1], OUTSIDE);
+    for (int i = 0; i < N; i++) {
       st = new StringTokenizer(br.readLine());
-      for (int j = 1; j <= M; j++) {
+      for (int j = 0; j < M; j++) {
         arr[i][j] = Integer.parseInt(st.nextToken());    
         if (arr[i][j] == CHEESE) {
           noCheese = false;
-          set.add(new Location(i, j));
         }
       }
 
-      arr[i][0] = arr[i][M + 1] = OUTSIDE;
+      arr[i][0] = arr[i][M - 1] = OUTSIDE;
     }
     br.close();
 
@@ -54,8 +51,8 @@ class Boj2638 {
         // printArr();
         // 치즈 내에 공간 확인 bfs -> 외부 공기 타일 체크
         Queue<Integer> q = new LinkedList<>();
-        for (int i = 0; i < arr.length; i++) {
-          for (int j = 0; j < arr[0].length; j++) {
+        for (int i = 0; i < N; i++) {
+          for (int j = 0; j < M; j++) {
             if (arr[i][j] != OUTSIDE) continue;
     
             q.add(i);
@@ -80,8 +77,8 @@ class Boj2638 {
         }
     
         // 외부와 접촉된 치즈 확인
-        for (int i = 0; i < arr.length; i++) {
-          for (int j = 0; j < arr[0].length; j++) {
+        for (int i = 0; i < N; i++) {
+          for (int j = 0; j < M; j++) {
             if (arr[i][j] != CHEESE) continue;
             
             int cnt = 0;
@@ -91,17 +88,20 @@ class Boj2638 {
               if (isOutside(nx, ny)) continue;
               
               if (arr[nx][ny] == OUTSIDE) cnt++;
+              if (cnt > 1) {
+                arr[i][j] = MELTING;
+                break;
+              }
             }
             
-            if (cnt > 1) arr[i][j] = MELTING;
           }
         }
     
         // printArr();
         boolean flag = true; // 녹지 않은 치즈가 남아있는지 확인
         // 접촉 치즈 지우고 반복
-        for (int i = 1; i <= N; i++) {
-          for (int j = 1; j <= M; j++) {
+        for (int i = 0; i < N; i++) {
+          for (int j = 0; j < M; j++) {
             if (arr[i][j] == MELTING) arr[i][j] = OUTSIDE;
             if (arr[i][j] == CHEESE) flag = false;
           }
@@ -116,7 +116,7 @@ class Boj2638 {
   }
 
   boolean isOutside(int nx, int ny) {
-    return (nx < 1 || nx > N || ny < 1 || ny > M);
+    return (nx < 0 || nx >= N || ny < 0 || ny >= M);
   }
 
   class Location {
@@ -130,8 +130,8 @@ class Boj2638 {
 
   void printArr() {
     System.out.println("Print!");
-    for (int i = 1; i < arr.length - 1; i++) {
-      for (int j = 1; j < arr[0].length - 1; j++) {
+    for (int i = 0; i < N; i++) {
+      for (int j = 0; j < M; j++) {
         System.out.print(arr[i][j] + " ");
       }
       System.out.println();
