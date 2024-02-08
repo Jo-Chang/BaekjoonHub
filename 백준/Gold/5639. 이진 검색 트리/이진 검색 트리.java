@@ -8,57 +8,38 @@ public class Main {
 }
 
 class Boj5639 {
+  int[] tree;
   StringBuilder sb;
   
+  {
+    tree = new int[10001];
+    sb = new StringBuilder();
+  }
+
   void sol() throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    Node root = new Node(0);
-    sb = new StringBuilder();
-
     String input = "";
+    int idx = 0;
     while ((input = br.readLine()) != null && !input.isEmpty()) {
       int num = Integer.parseInt(input);
-
-      if (root.element == 0) root = new Node(num);
-      else insertTree(root, num); 
+      tree[idx++] = num;
     }
     br.close();
 
-    postTraversal(root);
+    postTraversal(0, idx - 1);
     System.out.println(sb);
   }
 
-  void insertTree(Node node, int ele) {
-    if (ele < node.element) {
-      if (node.left == null) {
-        node.left = new Node(ele);
-      }
-      else {
-        insertTree(node.left, ele);
-      }
-    }
-    else {
-      if (node.right == null) {
-        node.right = new Node(ele);
-      }
-      else {
-        insertTree(node.right, ele);
-      }
-    }
-  }
+  void postTraversal(int s, int e) {
+    if (s > e) return;
+    
+    int root = s++;
 
-  void postTraversal(Node node) {
-    if (node.left != null) postTraversal(node.left);
-    if (node.right != null) postTraversal(node.right);
-    sb.append(node.element).append("\n");
-  }
+    while (tree[s] < tree[root] && s <= e) s++;
 
-  class Node {
-    int element;
-    Node left, right;
-  
-    Node(int element) {
-      this.element = element;
-    }
+    postTraversal(root + 1, s - 1);
+    postTraversal(s, e);
+
+    sb.append(tree[root]).append("\n");
   }
 }
