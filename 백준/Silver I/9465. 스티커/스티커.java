@@ -31,7 +31,7 @@ class Boj9465 {
       for (int i = 1; i < n; i++) {
         dp[i][0] = Math.max(dp[i - 1][2], dp[i - 1][1]) + arr[0][i];
         dp[i][1] = Math.max(dp[i - 1][2], dp[i - 1][0]) + arr[1][i];
-        dp[i][2] = Math.max(dp[i - 1][2], Math.max(dp[i - 1][0], dp[i - 1][1]));
+        dp[i][2] = Math.max(dp[i - 1][0], dp[i - 1][1]);
       }
 
       sb.append(Math.max(Math.max(dp[n - 1][0], dp[n - 1][1]), dp[n - 1][2])).append("\n");
