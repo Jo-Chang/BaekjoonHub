@@ -21,29 +21,30 @@ class Boj9935 {
   }
 
   String stringExplosion(char[] str, char[] bomb) {
+    char[] result = new char[str.length];
     int bSize = bomb.length;
 
-    Stack<Character> s = new Stack<>();
+    int idx = 0;
     for (int i = 0; i < str.length; i++) {
-      s.push(str[i]);
+      result[idx++] = str[i];
 
-      if (s.size() >= bSize) {
+      if (idx >= bSize) {
         boolean flag = true;
         for (int j = 0; j < bSize; j++) {
-          if (bomb[j] != s.get(s.size() - bSize + j)) {
+          if (bomb[j] != result[idx - bSize + j]) {
             flag = false;
             break;
           }
         }
         if (flag) {
-          for (int j = 0; j < bSize; j++) s.pop();
+          idx -= bSize;
         }
       }
     }
 
-    if (s.isEmpty()) return "FRULA";
+    if (idx == 0) return "FRULA";
     StringBuffer sb = new StringBuffer();
-    for (char ch : s) sb.append(ch);
+    for (int i = 0; i < idx; i++) sb.append(result[i]);
     return sb.toString();
   }
 }
