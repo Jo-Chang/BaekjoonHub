@@ -1,9 +1,5 @@
 -- 코드를 입력하세요
 SELECT
-    DATETIME
+    MAX(DATETIME)
 FROM
-    ANIMAL_INS
-ORDER BY 
-    DATETIME DESC
-LIMIT 
-    1;
+    ANIMAL_INS;
