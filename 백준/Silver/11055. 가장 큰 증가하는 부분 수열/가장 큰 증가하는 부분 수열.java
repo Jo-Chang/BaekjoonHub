@@ -24,7 +24,10 @@ class Boj11055 {
         if (arr[j] < arr[i]) bis[i] = Math.max(bis[i], bis[j] + arr[i]);
       }
     }
-      
-    System.out.println(Arrays.stream(bis).max().getAsInt());
+
+    // System.out.println(Arrays.stream(bis).max().getAsInt());
+    int max = 0;
+    for (int m : bis) max = Math.max(max, m);
+    System.out.println(max);
   }
 }
