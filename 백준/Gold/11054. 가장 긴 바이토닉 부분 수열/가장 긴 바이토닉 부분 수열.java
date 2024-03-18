@@ -9,12 +9,9 @@ public class Main {
 
 class BOJ11054 {
   void sol() throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    int N = Integer.parseInt(br.readLine());
+    int N = readInt();
     int[] arr = new int[N];
-    StringTokenizer st = new StringTokenizer(br.readLine());
-    for (int i = 0; i < N; i++) arr[i] = Integer.parseInt(st.nextToken());
-    br.close();
+    for (int i = 0; i < N; i++) arr[i] = readInt();
 
     int[][] dp = new int[N][2];
     // dp[i][0] -> Increasing
@@ -36,5 +33,17 @@ class BOJ11054 {
     int answer = 0;
     for (int i = 0; i < N; i++) answer = Math.max(answer, Math.max(dp[i][0], dp[i][1]));
     System.out.println(answer);
+  }
+
+  int readInt() throws IOException {
+    int input = System.in.read();
+    int num = 0;
+
+    while (input > 32) {
+      num = (num << 3) + (num << 1) + (input & 15);
+      input = System.in.read();
+    }
+
+    return num;
   }
 }
