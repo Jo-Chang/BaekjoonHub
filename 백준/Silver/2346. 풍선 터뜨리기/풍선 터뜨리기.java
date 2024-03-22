@@ -12,60 +12,36 @@ class Main {
 
     // Input
     N = Integer.parseInt(br.readLine());
-    arr = new int[N];
+    List<Node> list = new ArrayList<>();
     StringTokenizer st = new StringTokenizer(br.readLine());
     for (int i = 0; i < N; i++) {
-      arr[i] = Integer.parseInt(st.nextToken());
+      list.add(new Node(i + 1, Integer.parseInt(st.nextToken())));
     }
     br.close();
 
-    sol1();
-    // sol2();
-
+    int idx = 0;
+    for (int i = 1; i < N; i++) {
+      Node node = list.remove(idx);
+      int size = list.size();
+      sb.append(node.index).append(" ");
+      
+      if (node.value > 0) {
+        idx = (idx + node.value - 1) % size;
+      }
+      else {
+        idx = (idx + node.value % size + size) % size;
+      }
+    }
+    sb.append(list.get(0).index);
     System.out.println(sb);
   }
 
-  // O(N^2) 예상, 알고리즘 간편
-  static void sol1() {
-    int idx = 0;
-    for (int i = 1; i < N; i++) {
-      sb.append(idx + 1).append(" ");
+  static class Node {
+    int index, value;
 
-      int move = arr[idx];
-      arr[idx] = 0;
-
-      if (move > 0) {
-        int j = 0;
-        while (j < move) {
-          idx = (idx + 1) % N;
-
-          if (arr[idx] == 0)
-            continue;
-
-          j++;
-        }
-      } else {
-        int j = 0;
-        while (j > move) {
-          idx = (idx + N - 1) % N;
-
-          if (arr[idx] == 0)
-            continue;
-
-          j--;
-        }
-      }
+    public Node(int index, int value) {
+      this.index = index;
+      this.value = value;
     }
-
-    for (int i = 0; i < N; i++) {
-      if (arr[i] != 0) {
-        sb.append(i + 1);
-        break;
-      }
-    }
-  }
-
-  static void sol2() {
-
   }
 }
