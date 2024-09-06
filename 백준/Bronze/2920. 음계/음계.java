@@ -1,36 +1,33 @@
-import java.io.*;
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main {
-  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-  final int CASE = 8;
+class Main {
 
-  void solution() throws IOException {
-    int[] nums = new int[CASE], ascending = new int[CASE], descending = new int[CASE];
-    String answer = "mixed";
-
-    StringTokenizer st = new StringTokenizer(br.readLine());
-    for (int i = 0; i < CASE; i++) {
-      nums[i] = Integer.parseInt(st.nextToken());
-      ascending[i] = i + 1;
-      descending[i] = CASE - i;
-    }
-
-    if (nums[0] == 1) {
-      if (Arrays.equals(nums, ascending)) {
-        answer = "ascending";
-      }
-    } else if (nums[0] == CASE) {
-      if (Arrays.equals(nums, descending)) {
-        answer = "descending";
-      }
-    }
-
-    System.out.println(answer);
-  }
-
-  public static void main(String[] args) throws IOException {
-    new Main().solution();
-  }
+	final static int MAX = 8;
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int[] numbers = new int[MAX];
+		for (int i = 0; i < MAX; i++) 
+			numbers[i] = Integer.parseInt(st.nextToken());
+		
+		String result = "mixed";
+		int diff = numbers[1] - numbers[0];
+		for (int i = 2; i < MAX; i++) {
+			if (numbers[i] - numbers[i - 1] != diff) {
+				diff = 0;
+				break;
+			}
+		}
+		
+		if (diff == 1) result = "ascending";
+		else if (diff == -1) result = "descending";
+		
+		System.out.println(result);
+	}
+	
 }
