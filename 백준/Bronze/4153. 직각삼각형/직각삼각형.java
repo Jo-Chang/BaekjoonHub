@@ -1,45 +1,33 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-public class Main {
-  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-  StringBuilder sb = new StringBuilder();
+class Main {
 
-  void solution() throws IOException {
-    StringTokenizer st = new StringTokenizer(br.readLine());
+	final static int MAX = 8;
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 
-    int[] nums = new int[3];
-    for (int i = 0; i < 3; i++) {
-      nums[i] = Integer.parseInt(st.nextToken());
-    }
-
-    while (nums[0] + nums[1] + nums[2] > 0) {
-      int maxIdx = 0;
-      for (int i = 1; i < 3; i++) {
-        if (nums[i] > nums[maxIdx]) maxIdx = i;
-      }
-      int sum1 = 0, sum2 = 0;
-      for (int i = 0; i < 3; i++) {
-        if (i == maxIdx) {
-          sum1 = nums[maxIdx] * nums[maxIdx];
-        } else {
-          sum2 += nums[i] * nums[i];
-        }
-      }
-
-      if (sum1 == sum2) sb.append("right\n");
-      else sb.append("wrong\n");
-
-      st = new StringTokenizer(br.readLine());
-      for (int i = 0; i < 3; i++) {
-        nums[i] = Integer.parseInt(st.nextToken());
-      }
-    }
-
-    System.out.println(sb);
-  }
-
-  public static void main(String[] args) throws IOException {
-    new Main().solution();
-  }
+		while (true) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			int c = Integer.parseInt(st.nextToken());
+				
+			if (a == 0 && b == 0 && c == 0) break;
+			
+			int max = Math.max(a, Math.max(b, c));
+			int powerSum = a * a + b * b + c * c;
+			if (powerSum - max * max == max * max) sb.append("right\n");
+			else sb.append("wrong\n");
+		}
+		
+		System.out.println(sb);
+		
+	}
+	
 }
