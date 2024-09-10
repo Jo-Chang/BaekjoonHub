@@ -4,30 +4,35 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 class Main {
-	public static void main(String[] args) throws IOException {
-		new Main().sol();
-	}
 
-	void sol() throws IOException {
+	final static int MAX = 8;
+	
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = null;
+		StringBuilder sb = new StringBuilder();
 
 		int n = Integer.parseInt(br.readLine());
+		StringTokenizer st = null;
+		int[] sizes = new int[6];
+		
 		st = new StringTokenizer(br.readLine());
-		int[] arr = new int[6];
 		for (int i = 0; i < 6; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
+			sizes[i] = Integer.parseInt(st.nextToken());
 		}
+		
 		st = new StringTokenizer(br.readLine());
 		int t = Integer.parseInt(st.nextToken());
 		int p = Integer.parseInt(st.nextToken());
-		br.close();
-
-		int shirtsBundle = 0;
-		for (int shirts : arr) {
-			shirtsBundle += shirts / t + ((shirts % t == 0) ? 0 : 1);
+		
+		int shirtsBundles = 0;
+		for (int i = 0; i < 6; i++) {
+			shirtsBundles += sizes[i] / t + ((sizes[i] % t > 0)? 1 : 0);
 		}
-		System.out.println(shirtsBundle);
-		System.out.printf("%d %d", n / p, n % p);
+		
+		sb.append(shirtsBundles).append("\n");
+		sb.append(n / p).append(" ").append(n % p);
+		
+		System.out.println(sb);
 	}
+	
 }
