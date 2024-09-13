@@ -1,37 +1,31 @@
-import java.io.*;
-import java.math.BigInteger;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-public class Main {
-  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+class Main {
 
-  void solution() throws IOException {
-    int l = Integer.parseInt(br.readLine());
-    String word = br.readLine();
-
-    final int R = 31;
-    final int MODULO = 1234567891;
-
-    // BigInteger answer = new BigInteger("0");
-    // BigInteger bigNum;
-    long answer = 0, hash;
-    int number;
-
-    for (int i = 0; i < l; i++) {
-      number = (int)word.charAt(i) - (int)'a' + 1;
-      // bigNum = new BigInteger(String.format("%d", number));
-      hash = number;
-      for (int j = 0; j < i; j++) {
-        // bigNum = bigNum.multiply(BigInteger.valueOf(R)).remainder(BigInteger.valueOf(MODULO));
-        hash = hash * R % MODULO;
-      }
-      // answer = answer.add(bigNum);
-      answer = (answer + hash) % MODULO;
-    }
-
-    System.out.println(answer);
-  }
-
-  public static void main(String[] args) throws IOException {
-    new Main().solution();
-  }
+	static final int MOD = 1_234_567_891;
+	static final int R = 31;
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		String words = br.readLine();		
+		
+		System.out.println(hashing(words, n));
+	}
+	
+	static int hashing(String words, int n) {
+		long result = 0;
+		long mul = 1;
+		
+		for (int i = 0; i < n; i++) {
+			result += (words.charAt(i) - 'a' + 1) * mul % MOD;
+			mul = mul * R % MOD;
+		}
+		
+		return (int)result;
+	}
+	
 }
