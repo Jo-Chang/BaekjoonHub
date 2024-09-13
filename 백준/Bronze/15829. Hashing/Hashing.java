@@ -22,6 +22,7 @@ class Main {
 		
 		for (int i = 0; i < n; i++) {
 			result += (words.charAt(i) - 'a' + 1) * mul % MOD;
+			result %= MOD;
 			mul = mul * R % MOD;
 		}
 		
