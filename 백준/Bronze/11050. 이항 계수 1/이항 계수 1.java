@@ -1,32 +1,30 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
-public class Main {
-  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+class Main {
 
-  void solution() throws IOException {
-    StringTokenizer st = new StringTokenizer(br.readLine());
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
-    int n = Integer.parseInt(st.nextToken());
-    int k = Integer.parseInt(st.nextToken());
-
-    System.out.println(combination(n, k));
-  }
-
-  int combination(int n, int k) {
-    int result = 1;
-
-    for (int i = n; i > n - k; i--) {
-      result *= i;
-    }
-    for (int i = 1; i <= k; i++) {
-      result /= i;
-    }
-
-    return result;
-  }
-
-  public static void main(String[] args) throws IOException {
-    new Main().solution();
-  }
+		int n = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
+		
+		System.out.println(combination(n, k));
+	}
+	
+	static int combination(int n, int k) {
+		int result = 1;
+		
+		for (int i = 0; i < k; i++) {
+			result *= n - i;
+			result /= i + 1;
+		}
+		
+		return result;
+	}
+	
 }
