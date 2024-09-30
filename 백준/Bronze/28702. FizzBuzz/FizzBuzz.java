@@ -1,42 +1,35 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 class Main {
-	public static void main(String[] args) throws IOException {
-		new Main().sol();
-	}
 
-	void sol() throws IOException {
+	final static int COUNT = 3;
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String[] arr = new String[3];
-		for (int i = 0; i < 3; i++) {
-			arr[i] = br.readLine();
+
+		int result = 0;
+		for (int i = 0; i < COUNT; i++) {
+			String str = br.readLine();
+			if (isNumber(str)) result = Integer.parseInt(str) + COUNT - i;
 		}
 		
-		int answer = 0;
-		for (int i = 0; i < 3; i++) {
-			if (simpleIsNumber(arr[i])) {
-				answer = Integer.parseInt(arr[i]) + 3 - i;
-				break;
-			}
-		}
-
-		System.out.println(getFizzBuzz(answer));
+		System.out.println(getFizzBuzz(result));
 	}
-
-	boolean simpleIsNumber(String str) {
-		return '0' <= str.charAt(0) && str.charAt(0) <= '9';
+	
+	static boolean isNumber(String str) {
+		if (str.contains("Fizz")) return false;
+		else if (str.contains("Buzz")) return false;
+		else return true;
 	}
-
-	String getFizzBuzz(int n) {
-		String result = "";
-
-		if (n % 3 == 0) result += "Fizz";
-		if (n % 5 == 0) result += "Buzz";
-
-		if (result.isEmpty()) return result + n;
-		else return result;
+	
+	static String getFizzBuzz(int num) {
+		if (num % 3 == 0 && num % 5 == 0) return "FizzBuzz";
+		else if (num % 3 == 0) return "Fizz";
+		else if (num % 5 == 0) return "Buzz";
+		else return String.valueOf(num);
 	}
+	
 }
