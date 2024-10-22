@@ -13,29 +13,26 @@ public class Main {
 		int answer = -1;
 
 		List<Integer> q = new LinkedList<>();
-		q.add(a);
+		q.add(b);
 		q.add(0);
 		while (!q.isEmpty()) {
-			long num = q.remove(0);
+			int num = q.remove(0);
 			int count = q.remove(0);
 			
-			long case1 = num * 2;
-			long case2 = num * 10 + 1;
-			
-			if (case1 == b || case2 == b) {
-				answer = count + 1 + 1;
+			if (num < a) continue;
+			else if (num == a) {
+				answer = count + 1;
 				break;
 			}
 			
-			if (case1 < b) {
-				q.add((int)case1);
+			if (num % 10 == 1) {
+				q.add(num / 10);
 				q.add(count + 1);
 			}
-			
-			if (case2 < b) {
-				q.add((int)case2);
+			if (num % 2 == 0) {
+				q.add(num / 2);
 				q.add(count + 1);
-			} 
+			}
 		}
 
 		System.out.println(answer);
