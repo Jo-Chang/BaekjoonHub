@@ -6,33 +6,25 @@ class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		String input = br.readLine();
-		int answer = 0;
+		int answer = 0, len = input.length();
+		int[] sum = new int[len + 1];
+		sum[0] = 0;
 		
-		loop:
-		for (int i = input.length(); i > 0; i--) {
-			if (i % 2 != 0) continue;
-			
-			for (int j = 0; j <= input.length() - i; j++) {
-				if (isCriString(input.substring(j, j + i))) {
-					answer = i;
-					break loop;
+		for (int i = 1; i <= len; i++) {
+			sum[i] = sum[i - 1] + input.charAt(i - 1) - '0';
+		}
+		
+		for (int i = 0; i < len - 1; i++) {
+			for (int j = len; j > i; j--) {
+				if ((j - i) % 2 != 0) continue;
+				int half = (j - i) / 2 + i;
+				if (sum[j] - sum[half] == sum[half] - sum[i]) {
+					answer = Math.max(answer, j - i);
 				}
 			}
 		}
 		
 		System.out.println(answer);
-	}
-	
-	static boolean isCriString(String str) {
-		int left = 0, right = 0;
-		int half = str.length() / 2;
-		
-		for (int i = 0; i < half; i++) {
-			left += str.charAt(i) - '0';
-			right += str.charAt(half + i) - '0';
-		}
-		
-		return left == right;
 	}
 	
 }
