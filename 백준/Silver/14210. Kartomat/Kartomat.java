@@ -28,7 +28,7 @@ class Main {
 		int len = word.length();
 		
 		for (String dest : destinations) {
-			if (dest.substring(0, len).equals(word)) {
+			if (dest.startsWith(word)) {
 				char ch = dest.charAt(len);
 				keyboard[ch - 'A' + 3] = ch;
 			}
