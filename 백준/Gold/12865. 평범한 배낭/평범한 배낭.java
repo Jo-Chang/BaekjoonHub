@@ -29,29 +29,15 @@ class Main {
 	}
 	
 	static int calculateValues() {
-		int[][] dp = new int[n][k + 1];
+		int[] dp = new int[k + 1];
 		
-		if (weights[0] <= k) {
-			dp[0][weights[0]] = values[0];
-			dp[0][k] = dp[0][weights[0]];
-		}
-		
-		for (int i = 1; i < n; i++) {
-			dp[i] = dp[i - 1].clone();
-			if (weights[i] > k) continue;
-
-			dp[i][weights[i]] = Math.max(dp[i][weights[i]], values[i]);
-			for (int j = k - weights[i]; j > 0; j--) {
-				dp[i][j + weights[i]] = Math.max(
-						dp[i - 1][j + weights[i]],
-						dp[i - 1][j] + values[i]
-						);
-				
-				dp[i][k] = Math.max(dp[i][k], dp[i][j + weights[i]]);
+		for (int i = 0; i < n; i++) {
+			for (int j = k; j >= weights[i]; j--) {
+				dp[j] = Math.max(dp[j], dp[j - weights[i]] + values[i]);
 			}
 		}
 		
-		return dp[n - 1][k];
+		return dp[k];
 	}
 	
 }
