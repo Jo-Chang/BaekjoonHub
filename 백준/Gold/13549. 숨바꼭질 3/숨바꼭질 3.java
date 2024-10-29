@@ -1,50 +1,70 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
-class Main {
+public class Main {
+
+	static class Move {
+		int num;
+		int cnt;
+
+		public Move(int num, int cnt) {
+			super();
+			this.num = num;
+			this.cnt = cnt;
+		}
+	}
+
+	static StringBuilder sb = new StringBuilder();
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		int n = Integer.parseInt(st.nextToken());
-		int k = Integer.parseInt(st.nextToken());
+		StringTokenizer st;
 
-		List<Integer> q = new LinkedList<>();
-		q.add(n);
-		int[] positions = new int[200_000 + 1];
-		Arrays.fill(positions, -1);
-		positions[n] = 0;
-		
-		int answer = Integer.MAX_VALUE;
+		st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+
+		boolean[] isVisited = new boolean[100001];
+
+		Queue<Move> q = new ArrayDeque<>();
+		q.add(new Move(N, 0));
+		isVisited[N] = true;
+
+		int min = Integer.MAX_VALUE;
 		while (!q.isEmpty()) {
-			int cur = q.remove(0);
-			
-			if (k > n && cur > 2 * k || cur < 0) continue;
 
-			if (cur == k) answer = Math.min(answer, positions[cur]);
-			if (positions[cur] >= answer) continue;
+			Move cur = q.poll();
+			int num = cur.num;
+			int cnt = cur.cnt;
 
-			if (cur < k)
-				addQueue(q, positions, cur + 1, positions[cur] + 1);
-			if (2 * cur - k <= k - cur)
-				addQueue(q, positions, cur * 2, positions[cur]);
-			addQueue(q, positions, cur - 1, positions[cur] + 1);
+			if (num == M) {
+				min = Math.min(min, cnt);
+				break;
+			}
+
+			if (num * 2 <= 100000 && !isVisited[num * 2]) {
+				q.add(new Move(num * 2, cnt));
+				isVisited[num * 2] = true;
+			}
+
+			if (num - 1 >= 0 && !isVisited[num - 1]) {
+				q.add(new Move(num - 1, cnt + 1));
+				isVisited[num - 1] = true;
+			}
+
+			if (num + 1 <= 100000 && !isVisited[num + 1]) {
+				q.add(new Move(num + 1, cnt + 1));
+				isVisited[num+1] = true;					
+			}
+
 		}
-		
-		System.out.println(answer);
+
+		sb.append(min);
+		System.out.println(sb);
 	}
-	
-	static void addQueue(List<Integer> q, int[] positions, int move, int depth) {
-		if (move < 0) return;
-		
-		if (positions[move] == -1) {
-			positions[move] = depth;
-			q.add(move);
-		} else if (positions[move] > depth) {
-			positions[move] = depth;
-			q.add(move);
-		}
-	}
-	
+
 }
