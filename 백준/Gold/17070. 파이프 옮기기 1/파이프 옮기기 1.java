@@ -3,34 +3,14 @@ import java.util.*;
 
 class Main {
 	
-	static class Pipe {
-		int direction, r, c;
-		
-		Pipe(int r, int c, int direction) {
-			this.r = r;
-			this.c = c;
-			this.direction = direction;
-		}
-	}
-	
-	static final int HORIZONTAL = 0;
-	static final int VERTICAL = 1;
-	static final int DIAGONAL= 2;
-	
-	static int[][] MOVE = new int[][] {
-		{0, 1}, {1, 0}, {1, 1}
-	};
-	
-	static int n;
-	static boolean[][] isWall;
 	
 	public static void main(String[] args) throws IOException {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		
-		n = Integer.parseInt(br.readLine());
-		isWall = new boolean[n][n];
+		int n = Integer.parseInt(br.readLine());
+		boolean[][] isWall = new boolean[n][n];
 				
 		for (int i = 0; i < n; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -39,43 +19,28 @@ class Main {
 			}
 		}
 		
-		int answer = 0;
-		
-		Queue<Pipe> q = new ArrayDeque<>();
-		q.add(new Pipe(0, 1, HORIZONTAL));
-		
-		while (!q.isEmpty()) {
-			Pipe pipe = q.poll();
-			int r = pipe.r;
-			int c = pipe.c;
-			
-			if (r == n - 1 && c == n - 1) {
-				answer++;
-				continue;
+		int[][][] dp = new int[n][n][3];
+		dp[0][1][0] = 1;
+		for (int i = 2; i < n; i++) {
+			if (isWall[0][i]) continue;
+			dp[0][i][0] = dp[0][i - 1][0];
+		}
+		for (int i = 1; i < n; i++) {
+			for (int j = 1; j < n; j++) {
+				if (isWall[i][j]) continue;
+				
+				dp[i][j][0] = dp[i][j - 1][0] + dp[i][j - 1][2];
+				dp[i][j][1] = dp[i - 1][j][1] + dp[i - 1][j][2];
+
+				if (isWall[i][j - 1] || isWall[i - 1][j]) continue;
+				dp[i][j][2] = dp[i - 1][j - 1][0] + dp[i - 1][j - 1][1] + dp[i - 1][j - 1][2];
 			}
-			
-			for (int i = 0; i < MOVE.length; i++) {
-				int newR = r + MOVE[i][0];
-				int newC = c + MOVE[i][1];
-				
-				if (!isInner(newR, newC)) continue;
-				if (isWall[newR][newC]) continue;
-				
-				if (i == HORIZONTAL && pipe.direction == VERTICAL) continue;
-				if (i == VERTICAL && pipe.direction == HORIZONTAL) continue;
-				if (i == DIAGONAL && (isWall[newR][c] || isWall[r][newC])) continue;
-				
-				q.add(new Pipe(newR, newC, i));
-			}
-			
 		}
 		
+		int answer = 0;
+		for (int i = 0; i < 3; i++) answer += dp[n - 1][n - 1][i];
 		System.out.println(answer);
 		
-	}
-	
-	static boolean isInner(int r, int c) {
-		return 0 <= r && r < n && 0 <= c && c < n;
 	}
 	
 }
