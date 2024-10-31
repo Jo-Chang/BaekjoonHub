@@ -35,11 +35,20 @@ class Main {
 			Arrays.sort(b);
 			
 			for (int i = 0; i < n; i++) {
-				
+
+				int prevDiff = Integer.MAX_VALUE;
 				int s = 0, e = m - 1, mid = 0;
 				while (s <= e) {
 					
 					mid = (s + e) / 2;
+					
+					int diff = Math.abs(a[i] - b[mid]);
+					if (diff < prevDiff) {
+						prevDiff = diff;
+						c[i] = b[mid];
+					} else if (diff == prevDiff) {
+						if (b[mid] < c[i]) c[i] = b[mid];
+					}
 					
 					if (a[i] == b[mid]) {
 						break;
@@ -49,20 +58,6 @@ class Main {
 						e = mid - 1;
 					}
 					
-				}
-				
-				int diff1 = (mid > 0) ? Math.abs(a[i] - b[mid - 1]) : Integer.MAX_VALUE;
-				int diff2 = Math.abs(a[i] - b[mid]);
-				int diff3 = (mid < m -1) ? Math.abs(a[i] - b[mid + 1]) : Integer.MAX_VALUE;
-
-				int min = Math.min(diff1, Math.min(diff2, diff3));
-				
-				if (min == diff1) {
-					c[i] = b[mid - 1];
-				} else if (min == diff2) {
-					c[i] = b[mid];
-				} else if (min == diff3) {
-					c[i] = b[mid + 1];
 				}
 				
 			}
@@ -76,6 +71,7 @@ class Main {
 		}
 		
 		System.out.println(sb);
+		
 	}
 	
 }
