@@ -15,7 +15,6 @@ class Main {
 			int m = readInt();
 			int[] a = new int[n];
 			int[] b = new int[m];
-			int[] c = new int[n];
 			
 			for (int i = 0; i < n; i++) {
 				a[i] = readInt();
@@ -27,6 +26,7 @@ class Main {
 			
 			Arrays.sort(b);
 			
+			long sum = 0;
 			for (int i = 0; i < n; i++) {
 
 				int s = 0, e = m - 1, mid = 0;
@@ -42,19 +42,14 @@ class Main {
 					
 				}
 				
-				if (e < 0) c[i] = b[0];
-				else if (s > m - 1) c[i] = b[m - 1];
+				if (e < 0) sum += b[0];
+				else if (s > m - 1) sum += b[m - 1];
 				else {
 					int diff1 = Math.abs(a[i] - b[s]);
 					int diff2 = Math.abs(a[i] - b[e]);
-					c[i] = (diff1 < diff2 ? b[s] : b[e]);
+					sum += (diff1 < diff2 ? b[s] : b[e]);
 				}
 				
-			}
-			
-			long sum = 0;
-			for (int i = 0; i < n; i++) {
-				sum += c[i];
 			}
 			
 			sb.append(sum).append("\n");
