@@ -5,29 +5,24 @@ class Main {
 	
 	public static void main(String[] args) throws IOException {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		StringTokenizer st;
-		
-		int tc = Integer.parseInt(br.readLine());
+
+		int tc = readInt();
 		
 		while (tc-- > 0) {
 			
-			st = new StringTokenizer(br.readLine());
-			int n = Integer.parseInt(st.nextToken());
-			int m = Integer.parseInt(st.nextToken());
+			int n = readInt();
+			int m = readInt();
 			int[] a = new int[n];
 			int[] b = new int[m];
 			int[] c = new int[n];
 			
-			st = new StringTokenizer(br.readLine());
 			for (int i = 0; i < n; i++) {
-				a[i] = Integer.parseInt(st.nextToken());
+				a[i] = readInt();
 			}
 			
-			st = new StringTokenizer(br.readLine());
 			for (int i = 0; i < m; i++) {
-				b[i] = Integer.parseInt(st.nextToken());
+				b[i] = readInt();
 			}
 			
 			Arrays.sort(b);
@@ -70,4 +65,13 @@ class Main {
 		
 	}
 	
+	static int readInt() throws IOException {
+        int input, num = 0;
+        
+        while ((input = System.in.read()) > 32) {
+        	num = (num << 3) + (num << 1) + (input & 15);
+        }
+
+        return num;
+    }
 }
