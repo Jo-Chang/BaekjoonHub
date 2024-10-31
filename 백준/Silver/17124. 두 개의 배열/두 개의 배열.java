@@ -20,8 +20,6 @@ class Main {
 			int[] b = new int[m];
 			int[] c = new int[n];
 			
-			long sum = 0;
-			
 			st = new StringTokenizer(br.readLine());
 			for (int i = 0; i < n; i++) {
 				a[i] = Integer.parseInt(st.nextToken());
@@ -36,23 +34,12 @@ class Main {
 			
 			for (int i = 0; i < n; i++) {
 
-				int prevDiff = Integer.MAX_VALUE;
 				int s = 0, e = m - 1, mid = 0;
 				while (s <= e) {
 					
 					mid = (s + e) / 2;
 					
-					int diff = Math.abs(a[i] - b[mid]);
-					if (diff < prevDiff) {
-						prevDiff = diff;
-						c[i] = b[mid];
-					} else if (diff == prevDiff) {
-						if (b[mid] < c[i]) c[i] = b[mid];
-					}
-					
-					if (a[i] == b[mid]) {
-						break;
-					} else if (a[i] > b[mid]){
+					if (a[i] > b[mid]){
 						s = mid + 1;
 					} else {
 						e = mid - 1;
@@ -60,8 +47,17 @@ class Main {
 					
 				}
 				
+				if (e < 0) c[i] = b[0];
+				else if (s > m - 1) c[i] = b[m - 1];
+				else {
+					int diff1 = Math.abs(a[i] - b[s]);
+					int diff2 = Math.abs(a[i] - b[e]);
+					c[i] = (diff1 < diff2 ? b[s] : b[e]);
+				}
+				
 			}
 			
+			long sum = 0;
 			for (int i = 0; i < n; i++) {
 				sum += c[i];
 			}
