@@ -1,6 +1,19 @@
 import java.io.*;
+import java.util.*;
 
 class Main {
+	
+	static class Gear {
+		
+		int force, mass, index;
+
+		Gear(int force, int mass, int index) {
+			this.force = force;
+			this.mass = mass;
+			this.index = index;
+		}
+		
+	}
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -10,51 +23,42 @@ class Main {
 		int m = readInt();
 		int n = readInt();
 		
-		int[] forces = new int[n];
-		int[] masses = new int[n];
+		Queue<Gear> q = new PriorityQueue<>(
+				new Comparator<Gear>() {
+					@Override
+					public int compare(Gear g1, Gear g2) {
+						if (g1.force * g2.mass != g2.force * g1.mass)
+							return g2.force * g1.mass - g1.force * g2.mass;
+						else return g1.mass - g2.mass;
+					}}
+				);
 		
 		for (int i = 0; i < n; i++) {
-			forces[i] = readInt();
-			masses[i] = readInt();
+			int force = readInt();
+			int mass = readInt();
+			
+			q.add(new Gear(force, mass, i + 1));
 		}
 		
-		double maxAcceleration = (double) f / m;
-		int maxMass = m;
-		boolean[] maxBits = new boolean[n], bits = new boolean[n];
-		
-		for (int i = 0; i < (1 << n); i++) {
-			
-			setBit(bits, i);
-			
-			int force = f;
-			int mass = m;
-			for (int j = 0; j < n; j++) {
-				if (!bits[j]) continue;
-				
-				force += forces[j];
-				mass += masses[j];
-			}
-			
-			double acceleration = (double) force / mass;
-			
-			if (acceleration > maxAcceleration) {
-				maxAcceleration = acceleration;
-				maxMass = mass;
-				maxBits = bits.clone();
-			} else if (acceleration == maxAcceleration) {
-				if (mass < maxMass) {
-					maxAcceleration = acceleration;
-					maxMass = mass;
-					maxBits = bits.clone();
-				}
-			}
-			
-		}
-		
+		List<Integer> list = new ArrayList<>();
 		for (int i = 0; i < n; i++) {
-			if (maxBits[i]) sb.append(i + 1).append("\n");
+			
+			Gear g = q.poll();
+			
+			if (f * g.mass >= g.force * m) break;
+			
+			f += g.force;
+			m += g.mass;
+			list.add(g.index);
+			
 		}
-		if (sb.length() == 0) sb.append("NONE");
+		
+		if (list.isEmpty()) sb.append("NONE");
+		
+		Collections.sort(list);
+		for (int i = 0; i < list.size(); i++) {
+			sb.append(list.get(i)).append("\n");
+		}
 		
 		System.out.println(sb);
 		
@@ -69,16 +73,6 @@ class Main {
 		
 		return num;
 		
-	}
-	
-	static void setBit(boolean[] bits, int num) {
-		int idx = 0;
-		
-		for (int i = 0; i < bits.length; i++) {
-			if ((num & 1) == 1) bits[idx++] = true;
-			else bits[idx++] = false;
-			num >>= 1;
-		}
 	}
 	
 }
