@@ -77,7 +77,7 @@ class Main {
 		for (int i = 0; i < bits.length; i++) {
 			if ((num & 1) == 1) bits[idx++] = true;
 			else bits[idx++] = false;
-			num = num >> 1;
+			num >>= 1;
 		}
 	}
 	
