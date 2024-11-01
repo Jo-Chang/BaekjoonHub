@@ -38,8 +38,8 @@ class Main {
 				continue;
 			}
 			
-			if (2 * pos <= LIMIT && !visit[pos * 2]) {
-				q.add(pos * 2);
+			if (pos << 1 <= LIMIT && !visit[pos << 1]) {
+				q.add(pos << 1);
 				q.add(time + 1);
 			}
 			if (pos > 0 && !visit[pos - 1]) {
