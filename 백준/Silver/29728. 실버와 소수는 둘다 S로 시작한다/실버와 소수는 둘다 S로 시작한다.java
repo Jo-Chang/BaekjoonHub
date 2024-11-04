@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 class Main {
 	
@@ -8,36 +7,34 @@ class Main {
 		StringBuilder sb = new StringBuilder();
 		
 		int n = readInt();
-		int cntB = 0, cntS = 0;
+		int cntB = 1, cntS = 0;
 		
 		boolean[] euclidean = new boolean[n + 1];
 		setPrime(euclidean);
 		
-		Deque<String> q = new ArrayDeque<>();
+		char first = 'B', last = 'B';
 		boolean reverse = false;
-		for (int i = 1; i <= n; i++) {
+		for (int i = 2; i <= n; i++) {
 			if (euclidean[i]) {
-				if (reverse) q.addFirst("B");
-				else q.addLast("B");
+				if (reverse) first = 'B';
+				else last = 'B';
 				cntB++;
 			} else {
-				String str;
+				char ch;
 				if (reverse) {
-					str = q.pollFirst();
-					q.addFirst("S");
-					q.addFirst("S");
+					ch = first;
+					first = 'S';
 				} else {
-					str = q.pollLast();
-					q.addLast("S");
-					q.addLast("S");
+					ch = last;
+					last = 'S';
 				}
 				
-				if (str.equals("B")) {
+				if (ch == 'B') {
 					cntB--;
 					cntS++;
 				} else {
 					reverse = !reverse;
-				}
+				} 
 				
 				cntS++;
 			}
