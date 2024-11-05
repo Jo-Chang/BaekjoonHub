@@ -28,7 +28,7 @@ class Main {
 			num = (num << 3) + (num << 1) + (input & 15);
 		}
 		
-		if (input == 13) System.in.read();
+		if (input == 13 || input == 11) System.in.read();
 		
 		return num;
 	}
