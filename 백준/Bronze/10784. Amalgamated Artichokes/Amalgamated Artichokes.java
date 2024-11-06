@@ -6,14 +6,13 @@ class Main {
 	public static void main(String[] args) throws IOException {
 		
 		int p = readInt(), a = readInt(), b = readInt(), c = readInt(), d = readInt(), n = readInt();
-		double[] arr = new double[n];
 		double answer = 0, rangeMax = Double.MIN_VALUE;
 		
 		for (int i = 1; i <= n; i++) {
-			arr[i - 1] = p * (Math.sin(a * i + b) + Math.cos(c * i + d) + 2);
-			if (arr[i - 1] > rangeMax) 
-				rangeMax = arr[i - 1];
-			answer = Math.max(answer, rangeMax - arr[i - 1]);
+			double value = p * (Math.sin(a * i + b) + Math.cos(c * i + d) + 2);
+			if (value > rangeMax) 
+				rangeMax = value;
+			answer = Math.max(answer, rangeMax - value);
 		}
 		
 		System.out.println(answer);
