@@ -8,53 +8,51 @@ public class Main {
 		int n = read(), m = read();
 		int a = read(), b = read(), c = read(), answer = Integer.MAX_VALUE;
 		
-		int [][] arr = new int[n][m];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				arr[i][j] = read();
+		int[][] sum = new int[n + 1][m + 1];
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= m; j++) {
+				sum[i][j] = sum[i - 1][j] + sum[i][j - 1] - sum[i - 1][j - 1];
+				sum[i][j] += read();
 			}
 		}
 		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= m; j++) {
+
+				int px, py, npx, npy;
 				
-				if (j <= m - (b + c) && i <= n - (a)) {
+				if (i <= n - (a) + 1 && j <= m - (b + c) + 1) {
 					int clear = 0;
-					for (int k = 0; k < a; k++) {
-						for (int l = 0; l < b + c; l++) {
-							clear += arr[i + k][j + l];
-						}
-					}
+					
+					px = i + a - 1;
+					py = j + b + c - 1;
+					clear = sum[px][py] - sum[i - 1][py] - sum[px][j - 1] + sum[i - 1][j - 1]; 
 					
 					answer = Math.min(answer, clear);
 				}
-				if (j <= m - (a + c) && i <= n - (a + b)) {
+				if (i <= n - (a + b) + 1 && j <= m - (a + c) + 1) {
 					int clear = 0;
-					for (int k = 0; k < a; k++) {
-						for (int l = 0; l < c; l++) {
-							clear += arr[i + k][j + l];
-						}
-					}
-					for (int k = 0; k < b; k++) {
-						for (int l = 0; l < a; l++) {
-							clear += arr[(i + a) + k][(j + c) + l];
-						}
-					}
+					
+					px = i + a - 1;
+					py = j + c - 1;
+					clear = sum[px][py] - sum[i - 1][py] - sum[px][j - 1] + sum[i - 1][j - 1]; 
+					
+					npx = px + b;
+					npy = py + a;
+					clear += sum[npx][npy] - sum[px][npy] - sum[npx][py] + sum[px][py];
 					
 					answer = Math.min(answer, clear);
 				}
-				if (j <= m - (b + a) && i <= n - (a + c)) {
+				if (i <= n - (a + c) + 1 && j <= m - (b + a) + 1) {
 					int clear = 0;
-					for (int k = 0; k < a; k++) {
-						for (int l = 0; l < b; l++) {
-							clear += arr[i + k][j + l];
-						}
-					}
-					for (int k = 0; k < c; k++) {
-						for (int l = 0; l < a; l++) {
-							clear += arr[(i + a) + k][(j + b) + l];
-						}
-					}
+					
+					px = i + a - 1;
+					py = j + b - 1;
+					clear = sum[px][py] - sum[i - 1][py] - sum[px][j - 1] + sum[i - 1][j - 1]; 
+					
+					npx = px + c;
+					npy = py + a;
+					clear += sum[npx][npy] - sum[px][npy] - sum[npx][py] + sum[px][py];
 					
 					answer = Math.min(answer, clear);
 				}
