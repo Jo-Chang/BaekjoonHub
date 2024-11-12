@@ -2,25 +2,16 @@ import java.io.*;
 
 class Main {
 	
+	static int[][] combinations = new int[30][30];
+	
 	public static void main(String[] args) throws IOException {
 		
 		int tc = read();
 		StringBuilder sb = new StringBuilder();
 		
 		while (tc-- > 0) {
-			
 			int n = read(), m = read();
-			
-			long num = 1, r = Math.max(n, m - n);
-			for (int i = m; i > r; i--) {
-				num *= i;
-			}
-			for (int i = 1; i <= m - r; i++) {
-				num /= i;
-			}
-			
-			sb.append(num).append("\n");
-			
+			sb.append(comb(m, n)).append("\n");
 		}
 		
 		System.out.println(sb);
@@ -32,6 +23,12 @@ class Main {
 		while ((c = System.in.read()) > 32) n = (n << 3) + (n << 1) + (c & 15);
 		if (c == 13) System.in.read();
 		return n;
+	}
+	
+	static int comb(int n, int r) {
+		if (combinations[n][r] > 0) return combinations[n][r];
+		if (r == 0 || r == n) return combinations[n][r] = 1;
+		return combinations[n][r] = comb(n - 1, r) + comb(n - 1, r - 1);
 	}
 	
 }
