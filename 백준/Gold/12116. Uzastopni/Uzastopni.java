@@ -7,8 +7,8 @@ class Main {
 		StringBuilder sb = new StringBuilder();
 		long n = read();
 
-		for (long i = 2; i * (i + 1) <= n << 1; i++) {
-			long t = n / i, half = i >> 1, s = t - half, e = t + half;
+		for (int i = 2; (long) i * (i + 1) <= n << 1; i++) {
+			long t = n / i, s = t - (i >> 1), e = t + (i >> 1);
 			boolean b = false;
 			if (i % 2 == 0) {
 				s++;
