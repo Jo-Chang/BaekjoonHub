@@ -1,29 +1,38 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 class Main {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		Scanner sc = new Scanner(System.in);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		int testCase = sc.nextInt();
+		StringTokenizer st;
+		int testCase = Integer.parseInt(br.readLine());
 		
 		for (int tc = 1; tc <= testCase; tc++) {
-			int c = sc.nextInt(), p = sc.nextInt(), deliveryFee = 100 / p;
+			st = new StringTokenizer(br.readLine());
+			int c = Integer.parseInt(st.nextToken());
+			int p = Integer.parseInt(st.nextToken());
+			int deliveryFee = 100 / p;
+			
 			Map<String, int[]> coffees = new HashMap<>(); 
 			
 			for (int i = 0; i < c; i++) {
-				String coffee = sc.next();
+				st = new StringTokenizer(br.readLine());
 				
-				int[] fee = new int[3];
-				fee[0] = sc.nextInt();
-				fee[1] = sc.nextInt();
-				fee[2] = sc.nextInt();
-				
-				coffees.put(coffee, fee);
+				coffees.put(st.nextToken(), new int[] {
+						Integer.parseInt(st.nextToken()),
+						Integer.parseInt(st.nextToken()),
+						Integer.parseInt(st.nextToken())
+				});
 			}
 			for (int i = 0; i < p; i++) {
-				String name = sc.next(), size = sc.next(), coffee = sc.next();
+				st = new StringTokenizer(br.readLine());
+				
+				String name = st.nextToken(), size = st.nextToken(), coffee = st.nextToken();
 				int sizeIndex = -1;
 				switch (size) {
 				case "small":
