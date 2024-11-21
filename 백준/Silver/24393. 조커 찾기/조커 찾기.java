@@ -1,44 +1,51 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
 	
 	public static void main(String[] args) throws IOException {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int n = Integer.parseInt(br.readLine()), answer = 1;
+		int n = read(), answer = 1;
 		
 		for (int i = 0; i < n; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
 			int num, sum = 0, cnt = 1, newAnswer = answer;
+			boolean b = false;
 
 			if (newAnswer > 13) newAnswer -= 13;
 			
 			while (sum < 27) {
-				num = Integer.parseInt(st.nextToken());
+				num = read();
 				sum += num;
 				
-				if (cnt % 2 != 0 && answer >= 14){
-					if (newAnswer > num) newAnswer -= num;
-					else {
-						newAnswer = sum - num + newAnswer;
-						break;
-					}
-				} else if (cnt % 2 == 0 && answer < 14) {
-					if (newAnswer > num) newAnswer -= num;
-					else {
-						newAnswer = sum - num + newAnswer;
-						break;
-					}
-				} 
-				cnt++;
+				if (!b) {
+					
+					if (cnt % 2 != 0 && answer >= 14){
+						if (newAnswer > num) newAnswer -= num;
+						else {
+							answer = sum - num + newAnswer;
+							b = true;
+						}
+					} else if (cnt % 2 == 0 && answer < 14) {
+						if (newAnswer > num) newAnswer -= num;
+						else {
+							answer = sum - num + newAnswer;
+							b = true;
+						}
+					} 
+					
+					cnt++;
+				}
 			}
-			
-			answer = newAnswer;
 		}
 		
 		System.out.println(answer);
 		
+	}
+	
+	static int read() throws IOException {
+		int c, n = System.in.read() & 15;
+		while ((c = System.in.read()) > 32) n = (n << 3) + (n << 1) + (c & 15);
+		if (c == 13) System.in.read();
+		return n;
 	}
 	
 }
