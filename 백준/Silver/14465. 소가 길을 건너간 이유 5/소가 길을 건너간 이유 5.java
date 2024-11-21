@@ -1,35 +1,26 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
 	
-	static int n, k;
 	public static void main(String[] args) throws IOException {
 		
-		n = read(); 
-		k = read();
-		int b = read(), cnt = 0;
+		int n = read(), k = read(), b = read(), answer = 0, cnt = 0;
+		int[] streets = new int[n];
 		
-		int[] wrongs = new int[b + 2];
-		wrongs[0] = 1; 
-		wrongs[b + 1] = n;
-		for (int i = 1; i <= b; i++) {
-			wrongs[i] = read();
+		for (int i = 0; i < b; i++) {
+			int num = read();
+			streets[num - 1] = 1;
+			if (num <= k) answer++;
 		}
 		
-		Arrays.sort(wrongs);
-		
-		loop:
-		while (true) {
-			for (int i = 1; i <= b + 1 - cnt; i++) {
-				if (wrongs[i + cnt] - wrongs[i - 1] >= k) 
-					break loop;
-			}
-			
-			cnt++;
+		cnt = answer;
+		for (int i = k; i < n; i++) {
+			cnt += streets[i];
+			cnt -= streets[i - k];
+			answer = Math.min(answer, cnt);
 		}
 		
-		System.out.println(cnt);
+		System.out.println(answer);
 		
 	}
 	
