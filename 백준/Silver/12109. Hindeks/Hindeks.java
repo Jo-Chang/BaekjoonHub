@@ -5,20 +5,20 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException {
 
-		int n = read(), answer = 0, idx = 0;
+		int n = read();
 		int[] arr = new int[n];
 		for (int i = 0; i < n; i++) arr[i] = read();
 		
 		Arrays.sort(arr);
 		
 		for (int i = 1; i <= n; i++) {
-			int num = arr[n - i];
-			
-			if (num < i) break;
-			answer = i;
+			if (arr[n - i] < i) {
+				System.out.println(i - 1);
+				return;
+			}
 		}
 		
-		System.out.println(answer);
+		System.out.println(n);
 		
 	}
 	
