@@ -16,7 +16,7 @@ public class Main {
 			}
 		}
 		
-		setStar(n, 0, 0);
+		setStar(len, 0);
 		
 		for (int i = 0; i < len; i++) {
 			sb.append(String.valueOf(arr[i])).append("\n");
@@ -25,20 +25,18 @@ public class Main {
 		System.out.println(sb);
 	}
 	
-	static void setStar(int n, int x, int y) {
+	static void setStar(int n, int x) {
 		if (n == 1) {
-			arr[x][y] = '*';
+			arr[x][x] = '*';
 			return;
 		}
 		
-		int len = 4 * n - 3;
-		
-		for (int i = 0; i < len; i++) {
-			arr[x + i][y] = arr[x][y + i] = arr[x + i][y + len - 1] = arr[x + len - 1][y + i]
+		for (int i = 0; i < n; i++) {
+			arr[x + i][x] = arr[x][x + i] = arr[x + i][x + n - 1] = arr[x + n - 1][x + i]
 					= '*';
 		}
 		
-		setStar(n - 1, x + 2, y + 2);
+		setStar(n - 4, x + 2);
 	}
 	
 }
