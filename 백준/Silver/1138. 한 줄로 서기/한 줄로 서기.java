@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Main {
 	
 	static char[][] arr;
@@ -6,22 +8,14 @@ public class Main {
 		
 		StringBuilder sb = new StringBuilder();
 		int n = read();
-		int[] order = new int[n];
+		int[] arr = new int[n];
 		
-		for (int i = 0; i < n; i++) {
-			int num = read(), cnt = 0;
-			
-			for (int j = 0; j < n; j++) {
-				if (order[j] != 0) continue;
-				if (num == cnt) {
-					order[j] = i + 1;
-					break;
-				}
-				cnt++;
-			}
-		}
+		for (int i = 0; i < n; i++) arr[i] = read();
 		
-		for (int i = 0; i < n; i++) sb.append(order[i]).append(" ");
+		List<Integer> list = new ArrayList<>();
+		for (int i = n - 1; i >= 0; i--) list.add(arr[i], i + 1);
+		
+		for (int num : list) sb.append(num).append(" ");
 		
 		System.out.println(sb);
 	}
