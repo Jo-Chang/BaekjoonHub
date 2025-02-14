@@ -24,8 +24,8 @@ public class Main {
         int[] prev = arr[arr.length - 1];
 
         for (int i = 0; i < arr.length; i++) {
-//            area += ((long) prev[0] + arr[i][0]) * (prev[1] - arr[i][1]);
-            area += (long) prev[0] * arr[i][1] - (long) arr[i][0] * prev[1];
+            area += ((long) prev[0] + arr[i][0]) * (prev[1] - arr[i][1]);
+//            area += (long) prev[0] * arr[i][1] - (long) arr[i][0] * prev[1];
             prev = arr[i];
         }
 
